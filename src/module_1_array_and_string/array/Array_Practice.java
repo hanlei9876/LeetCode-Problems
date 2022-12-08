@@ -1,5 +1,8 @@
 package module_1_array_and_string.array;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Array_Practice {
     public static void main(String[] args) {
         // 1. an array is null
@@ -24,5 +27,8 @@ public class Array_Practice {
 
         int[] arr4 = {1, 2, 4};
         System.out.println(arr4); // [I@22f71333
+
+        List<Integer> arrList = new ArrayList<>();
+        System.out.println(arrList.size()); // 0
     }
 }
