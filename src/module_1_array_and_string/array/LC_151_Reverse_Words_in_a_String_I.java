@@ -1,9 +1,9 @@
 package module_1_array_and_string.array;
 
-public class LC_151_Reverse_Words_in_a_String {
+public class LC_151_Reverse_Words_in_a_String_I {
 
-    // solution 1: iterate the string in reverse order,
-    // while removing leading spaces, trailing spaces, and duplicate spaces in the middle
+    // solution 1: one pointer + result string builder + intermediate string builder for reversing words
+    // iterate the string in reverse order, while removing leading spaces, trailing spaces, and duplicate spaces in the middle
     // time: O(N)
     // space: O(N), take String Builder into account
     public static String reverseWords(String s) {
@@ -35,6 +35,7 @@ public class LC_151_Reverse_Words_in_a_String {
         return sb.toString();
     }
 
+    // helper method for solution 1
     static void reverseStringBuilder(StringBuilder sb) {
         int i = 0;
         int j = sb.length() - 1;
@@ -48,6 +49,16 @@ public class LC_151_Reverse_Words_in_a_String {
             j--;
         }
     }
+
+    // solution 2: two pointers + result string builder, avoid to use intermediate for reversing words
+    // time: O()
+    // space: O()
+    public static String reverseWords_2(String s) {
+        return null;
+    }
+
+
+
 
     public static void main(String[] args) {
         String s = "the sky is blue";
