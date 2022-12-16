@@ -1,6 +1,6 @@
 package module_1_array_and_string.array;
 
-public class LC_485_MaxConsecutiveOnes {
+public class LC_485_Max_Consecutive_Ones {
 
     // time: O(n)
     // space: O(1)
@@ -58,24 +58,33 @@ public class LC_485_MaxConsecutiveOnes {
         return longestOnes;
     }
 
-    // another solution from Discussion, using sliding window
-    // No need to actually keep the count variable. The number of 1s is the length of the sliding window.
-    //Solution beats 100% with memory beating > 90%.
+    // solution-3: sliding window
+    // time: O(2N) >> O(N)
+    // space: O(1)
     public static int findMaxConsecutiveOnes_3(int[] nums) {
-        int n = nums.length;
-        int max = 0, left = 0, right = 0;
+        int maxOnes = 0;
 
-        while (left < n && right < n) {
-            while (left < n && nums[left] == 0)
-                left++;
-            right = left;
-            while (right < n && nums[right] == 1)
-                right++;
-            max = Math.max(max, right - left);
-            left = right;
+        int L = 0, R = 0;
+        int numZeros = 0;
+        while (R < nums.length) {
+            if (nums[R] == 0)
+                numZeros++;
+
+            while (numZeros == 1) {
+                if (nums[L] == 0)
+                    numZeros--;
+
+                L++;
+            }
+
+            maxOnes = Math.max(maxOnes, R - L + 1);
+
+            R++;
         }
-        return max;
+
+        return maxOnes;
     }
+
 
     public static void main(String[] args) {
         int[] nums = new int[] {1,1,0,1,1,1};
