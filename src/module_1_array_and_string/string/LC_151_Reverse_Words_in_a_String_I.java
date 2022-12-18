@@ -1,4 +1,4 @@
-package module_1_array_and_string.array;
+package module_1_array_and_string.string;
 
 public class LC_151_Reverse_Words_in_a_String_I {
 

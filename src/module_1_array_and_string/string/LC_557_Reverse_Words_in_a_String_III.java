@@ -1,4 +1,4 @@
-package module_1_array_and_string.array;
+package module_1_array_and_string.string;
 
 public class LC_557_Reverse_Words_in_a_String_III {
 
@@ -108,7 +108,7 @@ public class LC_557_Reverse_Words_in_a_String_III {
             curr++;
         }
 
-        return new String(arr);
+        return new String(arr); // O(N) time
     }
 
 
