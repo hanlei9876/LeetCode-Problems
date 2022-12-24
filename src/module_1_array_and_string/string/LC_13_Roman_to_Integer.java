@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class LC_13_Roman_to_Integer {
 
-    // time: O(1), since the string's length is limited to 3999
+    // time: O(1), since the string's length is limited to 3999, which is finite
     // space: O(1)
     public int romanToInt(String s) {
         Map<Character, Integer> map = new HashMap<>();
