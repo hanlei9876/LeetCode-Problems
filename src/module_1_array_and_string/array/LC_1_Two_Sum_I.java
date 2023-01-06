@@ -33,9 +33,10 @@ public class LC_1_Two_Sum_I {
         Map<Integer, Integer> map = new HashMap<>();
 
         for (int i = 0; i < nums.length; i++) {
-            if (map.isEmpty() || !map.containsKey(target - nums[i])) // Each lookup in the table costs only O(1) time.
+            // if (map.isEmpty() || !map.containsKey(target - nums[i])) // Each lookup in the table costs only O(1) time.
+            if (!map.containsKey(target - nums[i])) {
                 map.put(nums[i], i);
-            else {
+            } else {
                 res[0] = map.get(target - nums[i]);
                 res[1] = i;
                 return res;
