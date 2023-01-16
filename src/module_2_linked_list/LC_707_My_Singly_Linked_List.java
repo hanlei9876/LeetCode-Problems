@@ -15,11 +15,11 @@ package module_2_linked_list;
 public class LC_707_My_Singly_Linked_List {
 
     int size;
-    Node head; // head is always pointing to sentinel node
+    Singly_List_Node head; // head is always pointing to sentinel node
 
     public void LC_707_My_Linked_List() {
         size = 0; // this can be omitted, as default value will be 0
-        head = new Node(0); // initialize the linked list with a sentinel node as head
+        head = new Singly_List_Node(0); // initialize the linked list with a sentinel node as head
     }
 
     // index is 0-based
@@ -28,7 +28,7 @@ public class LC_707_My_Singly_Linked_List {
             return -1;
         }
 
-        Node curr = head;
+        Singly_List_Node curr = head;
         for (int i = 0; i <= index; i++) {
             curr = curr.next;
         }
@@ -52,10 +52,10 @@ public class LC_707_My_Singly_Linked_List {
             return;
         }
 
-        Node node = new Node(val);
+        Singly_List_Node node = new Singly_List_Node(val);
 
         // find predecessor of the node to be added
-        Node prev = head;
+        Singly_List_Node prev = head;
         for (int i = 0; i < index; i++) {
             prev = prev.next;
         }
@@ -71,12 +71,12 @@ public class LC_707_My_Singly_Linked_List {
         }
 
         // find predecessor of the node to be deleted
-        Node prev = head;
+        Singly_List_Node prev = head;
         for (int i = 0; i < index; i++) {
             prev = prev.next;
         }
 
-        Node curr = prev.next;
+        Singly_List_Node curr = prev.next;
         prev.next = curr.next;
         size--;
     }
