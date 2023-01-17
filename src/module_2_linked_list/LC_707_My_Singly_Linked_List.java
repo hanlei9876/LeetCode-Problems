@@ -81,3 +81,12 @@ public class LC_707_My_Singly_Linked_List {
         size--;
     }
 }
+
+class Singly_List_Node {
+    int value;
+    Singly_List_Node next;
+
+    public Singly_List_Node (int value) {
+        this.value = value;
+    }
+}
