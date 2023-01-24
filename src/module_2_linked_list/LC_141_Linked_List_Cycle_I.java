@@ -1,10 +1,9 @@
 package module_2_linked_list;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-public class LC_141_Linked_List_Cycle {
+public class LC_141_Linked_List_Cycle_I {
 
     // solution-1: use HashSet
     // time: O(N)
@@ -51,6 +50,7 @@ public class LC_141_Linked_List_Cycle {
 
 
 // Definition for singly-linked list.
+// this class is accessible within the package - module_2_linked_list
 class ListNode {
     int val;
     ListNode next;
