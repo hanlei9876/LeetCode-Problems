@@ -11,6 +11,7 @@ public class LC_206_Reverse_Linked_List {
     public ListNode reverseList(ListNode head) {
         ListNode curr = head;
 
+        // where there is only one node in the list, no reverse is done
         while (curr != null && curr.next != null) {
             ListNode post = curr.next;
             curr.next = post.next;
