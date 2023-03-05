@@ -25,30 +25,9 @@ public class LC_707_My_Doubly_Linked_List {
     }
 
     // by introducing sentinel node, both addAtHead & addAtTali will be covered
-    public void addAtIndex(int index, int val) {
-        // check if index is valid
-        if (index < 0 || index > length) {
-            return;
-        }
-
-        Doubly_List_Node p = head;
-        for (int i = 0; i < index; i++) {
-            p = p.next;
-        }
-        // now, p is pointing to index - 1
-
-        Doubly_List_Node node = new Doubly_List_Node(val);
-        // insert the node between p & p.next
-        node.next = p.next;
-        p.next = node;
-
-        p.prev = node.next.prev;
-        node.next.prev = node;
-    }
-
     // time: O(N/2) >> O(N)
     // space: O(1)
-    public void addAtIndex_optimized(int index, int val) {
+    public void addAtIndex(int index, int val) {
         // check if index is valid
         if (index < 0 || index > length) {
             return;
@@ -66,7 +45,7 @@ public class LC_707_My_Doubly_Linked_List {
                 p = p.prev; // ***** important
             }
         }
-        // now, p is pointing to index - 1
+        // now, p is pointing to the previous node before index node
 
         Doubly_List_Node node = new Doubly_List_Node(val);
         // insert the node between p & p.next
@@ -75,6 +54,8 @@ public class LC_707_My_Doubly_Linked_List {
 
         p.prev = node.next.prev;
         node.next.prev = node;
+
+        length++;
     }
 
     public void addAtHead(int val) {
@@ -85,28 +66,13 @@ public class LC_707_My_Doubly_Linked_List {
         addAtIndex(length, val);
     }
 
-    // time: O(N)
+    // time: O(N/2) >> O(N)
     // space: O(1)
     public int get(int index) {
         if (index < 0 || index >= length) {
             return -1;
         }
 
-        Doubly_List_Node p = head;
-        for (int i = 0; i <= index; i++) {
-            p = p.next;
-        }
-
-        return p.val;
-    }
-
-    // time: O(N/2) >> O(N)
-    // space: O(1)
-    public int get_optimized(int index) {
-        if (index < 0 || index >= length) {
-            return -1;
-        }
-
         Doubly_List_Node p;
         if (index < length / 2) {
             p = head;
@@ -115,41 +81,21 @@ public class LC_707_My_Doubly_Linked_List {
             }
         } else {
             p = tail;
-            for (int i = 0; i <= length - index; i++) {
+            for (int i = 0; i < length - index; i++) {
                 p = p.prev;
             }
         }
 
-
         return p.val;
     }
 
-    // time: O(N)
+    // time: O(N/2) >> O(N)
     // space: O(1)
     public void deleteAtIndex(int index) {
         if (index < 0 || index >= length) {
             return;
         }
 
-        Doubly_List_Node p = head;
-        for (int i = 0; i <= index; i++) {
-            p = p.next;
-        }
-        // now, p is pointing to the node to delete
-
-        Doubly_List_Node prev = p.prev;
-        Doubly_List_Node next = p.next;
-        prev.next = next;
-        next.prev = prev;
-    }
-
-    // time: O(N/2) >> O(N)
-    // space: O(1)
-    public void deleteAtIndex_optimized(int index) {
-        if (index < 0 || index >= length) {
-            return;
-        }
-
         Doubly_List_Node p;
         if (index < length / 2) {
             p = head;
@@ -158,7 +104,7 @@ public class LC_707_My_Doubly_Linked_List {
             }
         } else {
             p = tail;
-            for (int i = 0; i <= length - index; i++) {
+            for (int i = 0; i < length - index; i++) {
                 p = p.prev;
             }
         }
@@ -168,6 +114,8 @@ public class LC_707_My_Doubly_Linked_List {
         Doubly_List_Node next = p.next;
         prev.next = next;
         next.prev = prev;
+
+        length--;
     }
 }
 
