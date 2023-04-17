@@ -12,6 +12,7 @@ public class LC_206_Reverse_Linked_List {
         ListNode curr = head;
 
         // where there is only one node in the list, no reverse is done
+        // we are actually maintaining two pointers
         while (curr != null && curr.next != null) {
             ListNode post = curr.next;
             curr.next = post.next;
