@@ -2,9 +2,10 @@ package module_2_linked_list;
 
 import java.util.List;
 
+// constraints: The number of nodes in the list is the range [0, 5000]
 public class LC_206_Reverse_Linked_List {
 
-    // solution 1: iteration
+    // solution 1: iteration (without using sentinel node)
     // two edge cases are all covered by the code below
     // time: O(N)
     // space: O(1)
