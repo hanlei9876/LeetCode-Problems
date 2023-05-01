@@ -1,6 +1,8 @@
 package module_2_linked_list;
 
 // constraints: 1 <= n <= 5 * 10^4
+// time: O(1.5 * N) = O(N)
+// space: O(1)
 public class LC_143_Reorder_List {
 
     // solution - 4 steps: find middle node -> -> break the two halves -> reverse 2nd half -> merge two lists
