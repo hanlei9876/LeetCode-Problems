@@ -68,6 +68,29 @@ public class LC_119_Pascals_Triangle_II {
         return row;
     }
 
+    // solution-4: brute force recursion
+    public List<Integer> getRow_4(int rowIndex) {
+        List<Integer> row = new ArrayList<>();
+
+        for (int i = 0; i <= rowIndex; i++) {
+            int value = getValue(rowIndex, i);
+            row.add(value);
+        }
+
+        return row;
+    }
+
+    // row i & column j are 0-based
+    private int getValue(int i, int j) {
+        if (j == 0 || j == i) {
+            return 1;
+        }
+
+        int value = getValue(i - 1, j - 1) + getValue(i - 1, j);
+        return value;
+    }
+
+
 
     public static void main(String[] args) {
         int a = 145422675;

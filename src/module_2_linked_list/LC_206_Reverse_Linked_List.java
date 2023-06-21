@@ -24,4 +24,21 @@ public class LC_206_Reverse_Linked_List {
         return head;
     }
 
+    // solution 2: recursion
+    // time: O(N)
+    // space: O(N)
+    public ListNode reverseList_2(ListNode head) {
+        // base case: reverse(3 -> null), reverse(null)
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        // recurrence relation: below have order restriction. we must call the recursive function first
+        ListNode subListHead = reverseList_2(head.next);
+        head.next.next = head;
+        head.next = null;
+        head = subListHead; // could skip this line and return subListHead directly
+
+        return head;
+    }
 }
