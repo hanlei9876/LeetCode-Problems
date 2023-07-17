@@ -59,7 +59,7 @@ public class LC_21_Merge_Two_Sorted_Lists {
         ListNode p2 = list2;
 
         while (p1 != null && p2 != null) {
-            if (p1.val <+p2.val) {
+            if (p1.val <= p2.val) {
                 prev.next = p1;
                 p1 = p1.next;
             } else {
@@ -74,4 +74,90 @@ public class LC_21_Merge_Two_Sorted_Lists {
         return sentinel.next;
     }
 
+    // solution-3: recursion
+    // time: O(M + N)
+    // space: O((M + N)
+    public ListNode mergeTwoLists_3(ListNode list1, ListNode list2) {
+        ListNode sentinel = new ListNode(0);
+        ListNode curr = sentinel;
+
+        merge(curr, list1, list2);
+
+        return sentinel.next;
+    }
+
+    private void merge(ListNode p, ListNode p1, ListNode p2) {
+        // base case
+        if (p1 == null && p2 != null) {
+            p.next = p2;
+            return;
+        } else if (p1 != null && p2 == null) {
+            p.next = p1;
+            return;
+        } else if (p1 == null && p2 == null) {
+            return;
+        }
+
+        // recurrence relation
+        if (p1.val <= p2.val) {
+            p.next = p1;
+            p = p.next;
+            p1 = p1.next;
+        } else {
+            p.next = p2;
+            p = p.next;
+            p2 = p2.next;
+        }
+
+        merge(p, p1, p2);
+    }
+
+    // solution-4: recursion (more elegant)
+    // time: O(M + N)
+    // space: O((M + N)
+    public ListNode mergeTwoLists_4(ListNode list1, ListNode list2) {
+        // base case
+        if (list1 == null && list2 != null) {
+            return list2;
+        } else if (list1 != null && list2 == null) {
+            return list1;
+        } else if (list1 == null && list2 == null) { // can be merged to any of the 2 above conditions
+            return null;
+        }
+
+        // recurrence relation
+        if (list1.val <= list2.val) {
+            list1.next = mergeTwoLists_4(list1.next, list2);
+            return list1;
+        } else {
+            list2.next = mergeTwoLists_4(list1, list2.next);
+            return list2;
+        }
+    }
+
+    // solution-5: recursion (way more elegant - copied from the official solution)
+    // time: O(M + N)
+    // space: O((M + N)
+    public ListNode mergeTwoLists_5(ListNode list1, ListNode list2) {
+        // base case
+        if (list1 == null) {
+            return list2;
+        }
+        if (list2 == null) {
+            return list1;
+        }
+
+        // recurrence relation
+        ListNode head;
+        if (list1.val <= list2.val) {
+            head = list1;
+            list1 = list1.next;
+        } else {
+            head = list2;
+            list2 = list2.next;
+        }
+
+        head.next = mergeTwoLists_5(list1, list2);
+        return head;
+    }
 }

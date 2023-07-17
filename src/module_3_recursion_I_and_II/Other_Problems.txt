@@ -6,3 +6,4 @@ Now, I have use recursion to solve them again, which are listed here.
 LC-344 - Reverse String (Array & String)
 LC-206 - Reverse Linked List (Linked List)
 LC-119 - Pascal's Triangle II
+LC-21 - Merge Two Sorted Lists
