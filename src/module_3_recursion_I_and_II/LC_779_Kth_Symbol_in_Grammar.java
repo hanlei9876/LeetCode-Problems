@@ -61,6 +61,26 @@ public class LC_779_Kth_Symbol_in_Grammar {
         }
     }
 
+    // solution 3: recursion - pattern - flip parent bits
+    // time: O(n) - n is the level of row
+    // space: O(n)
+    public int kthGrammar_3(int n, int k) {
+        // base case
+        if (n == 1) {
+            return 0;
+        }
+
+        // recursion relation
+        int len = (int) Math.pow(2, n - 1);
+        if (k <= len / 2) {
+            int result = kthGrammar_3(n - 1, k);
+            return result;
+        } else {
+            int result = kthGrammar_3(n - 1, k - (len / 2));
+            return (result == 0) ? 1 : 0;
+        }
+    }
+
 
     public static void main(String[] args) {
         int a = 1;
