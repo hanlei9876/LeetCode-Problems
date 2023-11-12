@@ -69,6 +69,13 @@ public class LC_119_Pascals_Triangle_II {
     }
 
     // solution-4: brute force recursion
+    // for complexity. let k = rowIndex
+    // time: O(2^k)
+    // the total time is k*(1+2+4+8+...)
+    //      = k*(2^0 + 2^1 + 2^2 + 2^3 + ...2^k)
+    //      = O( k*(2^0 + 2^1 + 2^2 + 2^3 + ...2^k) )
+    //      = O(2^k)
+    // space: O(k) + O(K) = O(k). fist is ArrayList, second is maximum height of call stack
     public List<Integer> getRow_4(int rowIndex) {
         List<Integer> row = new ArrayList<>();
 

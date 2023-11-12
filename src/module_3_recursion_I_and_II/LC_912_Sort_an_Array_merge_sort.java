@@ -1,8 +1,9 @@
 package module_3_recursion_I_and_II;
 
-public class LC_912_Sort_an_Array {
+// 1 - merge sort
+public class LC_912_Sort_an_Array_merge_sort {
 
-    // 1 - merge sort
+    // merge sort - top down
     // time: O(logN) * O(N + N) = O(NlogN)
     // space: O(logN) + O(N) + O(N) = O(logN + 2N) = O(2N) = O(N)
     public int[] sortArray(int[] nums) {

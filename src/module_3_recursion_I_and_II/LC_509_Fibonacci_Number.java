@@ -8,6 +8,9 @@ public class LC_509_Fibonacci_Number {
     private Map<Integer, Integer> cache = new HashMap<>();
 
     // solution-1: recursion without memoization
+    // for complexity, given fib(n), there will be n level of the call tree
+    // time: O(2^n), total amount of nodes in the balanced tree
+    // space: O(n)
     public int fib(int n) {
         // base case
         if (n < 2) {
@@ -18,6 +21,9 @@ public class LC_509_Fibonacci_Number {
     }
 
     // solution-2: recursion with memoization
+    // for complexity, given fib(n), there will be n level of the call tree
+    // time: O(n), total amount of nodes in the balanced tree
+    // space: O(n) + O(n) = O(n). first is max height of call stack, second is cache size
     public int fib_1(int n) {
         // always look up cache first to know if the result has been calculated already
         if (cache.containsKey(n)) {

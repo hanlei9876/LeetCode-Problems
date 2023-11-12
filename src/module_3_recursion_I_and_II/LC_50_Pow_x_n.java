@@ -25,7 +25,7 @@ public class LC_50_Pow_x_n {
 
     // solution-2: brute force recursion
     // time: O(n) - Time Limit Exceeded when n is too large
-    // space: (n) - Stack Overflow when n is too large
+    // space: O(n) - Stack Overflow when n is too large
     public double myPow(double x, int n) {
         // base case
         if (n == 0) return 1;
@@ -43,22 +43,31 @@ public class LC_50_Pow_x_n {
 
     // solution-2.1: another way of brute force recursion
     // time: O(n) - Time Limit Exceeded when n is too large
-    // space: (n) - Stack Overflow when n is too large
+    // space: O(n) - Stack Overflow when n is too large
     public double myPow_2(double x, int n) {
+        /// handle positive/negative of n in advance
+        if (n >= 0) {
+            return pow_2(x, n);
+        } else {
+            return pow_2(1 / x, -n);
+        }
+    }
+
+    // this helper method will only handle positive n
+    private double pow_2(double x, int n) {
         // base case
         if (n == 0) return 1;
 
-        // recurrence relation
-        if (n < 0)
-            return 1.0 / myPow_2(x, -n); // return 1 / myPow_2(x, -n); this is working as well, as Java compiler will cast int to double
-
-        return x * myPow_2(x, n - 1);
+        // recurrence relations
+        return pow_2(x, n-1) * x;
     }
+
+
 
     /***  solutions blow are able to pass submission *****/
 
     // solution-3: recursion + binary exponentiation
-    // binary: 2^x = n. so, x log(n)
+    // binary: 2^x = n. so, x = log(n)
     // time: O(logn)
     // space: O(logn)
     public double myPow_3(double x, int n) {
@@ -66,7 +75,7 @@ public class LC_50_Pow_x_n {
         if (n >= 0) {
             return pow(x, n);
         } else {
-            return 1.0 / pow(x, -n);
+            return pow(1/x, -n);
         }
     }
 
@@ -80,12 +89,13 @@ public class LC_50_Pow_x_n {
             double y = pow(x, n/2);
             return y * y;
         } else {
-            double y = pow(x, n/2);
+            // double y = pow(x, (n-1)/2); // this will cause stack overflow!!! But don't know why
+            double y = pow(x, n/2); // 5/2 == 2
             return y * y * x;
         }
     }
 
-    // solution-3: iteration + binary exponentiation (mimic recursion)
+    // solution-4: iteration + binary exponentiation (mimic recursion)
     // time: O()
     // space: O()
     public double myPow_4(double x, int n) {return 0.0;}

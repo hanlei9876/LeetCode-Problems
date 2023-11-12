@@ -25,6 +25,9 @@ public class LC_700_Search_in_a_Binary_Search_Tree {
     }
 
     // solution-2: recursion
+    // for the complexity, given the BST having N nodes,
+    // time: O(logN) in the average case (balanced BST), O(N) in the worst case
+    // space: O(logN)  in the average case (balanced BST), O(N) in the worst case
     public TreeNode searchBST_2(TreeNode root, int val) {
         // base case: found the node or there is no node to search
         if (root == null || root.val == val) {
