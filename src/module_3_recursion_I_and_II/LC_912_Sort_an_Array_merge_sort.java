@@ -4,7 +4,7 @@ package module_3_recursion_I_and_II;
 public class LC_912_Sort_an_Array_merge_sort {
 
     // merge sort - top down
-    // time: O(logN) * O(N + N) = O(NlogN)
+    // time: O(logN) * O(N + N) = O(NlogN) - In O(N + N), they are "divide" + "combine" respectively
     // space: O(logN) + O(N) + O(N) = O(logN + 2N) = O(2N) = O(N)
     public int[] sortArray(int[] nums) {
         /*** base case ***/
