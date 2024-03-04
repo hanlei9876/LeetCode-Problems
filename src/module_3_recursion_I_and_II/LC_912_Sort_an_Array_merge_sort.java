@@ -5,7 +5,8 @@ public class LC_912_Sort_an_Array_merge_sort {
 
     // merge sort - top down
     // time: O(logN) * O(N + N) = O(NlogN) - In O(N + N), they are "divide" + "combine" respectively
-    // space: O(logN) + O(N) + O(N) = O(logN + 2N) = O(2N) = O(N)
+    // space: O(logN) + O(N) = O(logN + N) = O(N)
+    // Note: space is NOT like this O(logN) + O(N) + O(N) = O(logN + 2N) = O(2N) = O(N), as this O(N) space can be reused repeatedly in memory by both split & merge
     public int[] sortArray(int[] nums) {
         /*** base case ***/
         if (nums.length <= 1) {
