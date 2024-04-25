@@ -81,9 +81,59 @@ public class LC_779_Kth_Symbol_in_Grammar {
         }
     }
 
+    // solution 4: recursion to iteration for pattern - flip parent bits
+    // time: O(n)
+    // space: O(1)
+    public int kthGrammar4(int n, int k) {
+        if (n == 1) return 0;
+
+        // below, we start to maintain val, n, k
+        int val = 0; // we assume val == 0
+        while (n > 1) {
+            int len = (int) Math.pow(2, n - 1);
+            if (k <= len/2) {
+                // do nothing
+            } else {
+                val = (val == 0) ? 1 : 0; // flip val
+                k = k - len/2;
+            }
+
+            n = n - 1;
+        }
+
+        return (val == 0) ? 0 : 1;
+    }
+
 
     public static void main(String[] args) {
         int a = 1;
         System.out.println(a>>1);
+    }
+}
+
+// solution 5: recursion - binary search tree optimization
+// time: O(n)
+// space: O(n)
+class LC_779_Solution_4 {
+    public int kthGrammar(int n, int k) {
+        return depthFirstSearch(n, k, 0);
+    }
+
+    public int depthFirstSearch(int n, int k, int val) {
+        // base case
+        if (n == 1) {
+            return val;
+        }
+
+        // recursion relation
+        int num = (int) Math.pow(2, n - 1);
+
+        if (k <= num/2) {
+            int rootVal = (val == 0) ? 0: 1;
+            return depthFirstSearch(n - 1, k, rootVal);
+        } else {
+            int rootVal = (val == 0) ? 1 : 0;
+            return depthFirstSearch(n - 1, k - num/2, rootVal);
+        }
     }
 }

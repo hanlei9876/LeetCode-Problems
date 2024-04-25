@@ -4,10 +4,11 @@ package module_3_recursion_I_and_II;
 public class LC_912_Sort_an_Array_merge_sort {
 
     // merge sort - top down
-    // time: O(logN) * O(N + N) = O(NlogN)
-    // space: O(logN) + O(N) + O(N) = O(logN + 2N) = O(2N) = O(N)
+    // time: O(logN) * O(N + N) = O(NlogN) - In O(N + N), they are "divide" + "combine" respectively
+    // space: O(logN) + O(N) = O(logN + N) = O(N)
+    // Note: space is NOT like this O(logN) + O(N) + O(N) = O(logN + 2N) = O(2N) = O(N), as this O(N) space can be reused repeatedly in memory by both split & merge
     public int[] sortArray(int[] nums) {
-        // base case
+        /*** base case ***/
         if (nums.length <= 1) {
             return nums;
         }
@@ -31,7 +32,7 @@ public class LC_912_Sort_an_Array_merge_sort {
         int[] sorted_list_L = sortArray(list_L);
         int[] sorted_List_R = sortArray(list_R);
 
-        // merge sorted sub-lists to 1 list (merge)
+        // merge sorted sub-lists to 1 list (combine)
         int[] res_List = merge(sorted_list_L, sorted_List_R);
 
         return res_List;
@@ -94,5 +95,8 @@ public class LC_912_Sort_an_Array_merge_sort {
 
         int[] l3 = null;
         System.out.println(l3.length); // Null Pointer Exception
+
+        int[] l4 = new int[0];
+        System.out.println(l4.length); // 0
     }
 }
