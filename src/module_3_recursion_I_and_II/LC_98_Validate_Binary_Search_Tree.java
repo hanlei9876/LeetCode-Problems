@@ -6,10 +6,12 @@ package module_3_recursion_I_and_II;
 public class LC_98_Validate_Binary_Search_Tree {
 
     // solution-1: Divide & Conquer with valida range - Top-down DFS
-    // time: O(tree's height) >> O(N) in the worst case, where a tree only has left children or only has right children
+    // see the graph in note
+    // time: O(N) - we need to traverse each single node nof the tree
     // space: O(tree's height) >> O(N) in the worst case, where a tree only has left children or only has right children
     public boolean isValidBST(TreeNode root) {
-        // here, we use "Integer == null" to denote positive infinity & negative infinity
+        // here, we use "Integer == null" to denote positive infinity & negative infinity.
+        // we can't achieve the denoting of infinity with int
         return validate(root, null, null);
     }
 
@@ -19,11 +21,13 @@ public class LC_98_Validate_Binary_Search_Tree {
             return true; // null node must be a valid BST
         }
 
+        // recurrence relation
+        // 1 - meet critera in this level
         if ((low != null && node.val <= low) || (up != null && node.val >= up)) {
             return false;
         }
 
-        // recurrence relation
+        // 2 - levels below should also be met
         boolean left_Valid = validate(node.left, low, node.val);
         boolean right_valid = validate(node.right, node.val, up);
 
