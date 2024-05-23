@@ -82,7 +82,9 @@ class LC_240_Search_a_2D_Matrix_II_2 {
         // base case
         if (up > down || left > right) {
             return false;
-        } else if (target < matrix[up][left] || target > matrix[down][right]) {
+        }
+
+        if (target < matrix[up][left] || target > matrix[down][right]) {
             return false;
         }
 
@@ -96,14 +98,8 @@ class LC_240_Search_a_2D_Matrix_II_2 {
             }
             i++;
         }
+        // now the pivot is found: matrix[i][mid_j]
 
-        // after the loop, we could have 3 types of scenarios:
-        //      1 - find pivot matrix[i][mid_j], where matrix[i-1][mid_j] < target && matrix[i][mid_j] > target
-        //      2 - find pivot matrix[i][mid_j], where i = up, j = mid_j
-        //      3 - find pivot matrix[i][mid_j], where i = down + 1 (out of bound), j = mid_j.
-        //          But this scenario will NOT go out of boundary in the recursive calls below (see example in my note)
-
-        // now the pivot is determined as matrix[i][mid_j] (matrix[i][mid_j] > target)
         // we will need to search 2 zones
         boolean zone_1 = searchRec(i, down, left, mid_j - 1);
         boolean zone_2 = searchRec(up, i - 1, mid_j + 1, right);
