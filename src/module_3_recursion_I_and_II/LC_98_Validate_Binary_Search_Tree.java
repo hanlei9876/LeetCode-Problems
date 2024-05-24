@@ -6,7 +6,7 @@ package module_3_recursion_I_and_II;
 public class LC_98_Validate_Binary_Search_Tree {
 
     // solution-1: Divide & Conquer with valida range - Top-down DFS
-    // see the graph in note
+    // see note for the data structure and its key features used in this problem
     // time: O(N) - we need to traverse each single node nof the tree
     // space: O(tree's height) >> O(N) in the worst case, where a tree only has left children or only has right children
     public boolean isValidBST(TreeNode root) {

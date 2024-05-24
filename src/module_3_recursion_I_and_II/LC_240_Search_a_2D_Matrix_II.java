@@ -60,7 +60,8 @@ public class LC_240_Search_a_2D_Matrix_II {
     }
 }
 
-// solution-2: divide & conquer - optimize searching zones
+// solution-2: divide & conquer - optimize searching zones - this method is what I need to learn
+// see note for the data structure and its key features used in this problem
 // time: O()
 // space: O()
 class LC_240_Search_a_2D_Matrix_II_2 {
