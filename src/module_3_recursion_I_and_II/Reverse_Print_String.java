@@ -1,5 +1,10 @@
 package module_3_recursion_I_and_II;
 
+import javafx.util.Pair;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Reverse_Print_String {
 
     // iteration
@@ -69,5 +74,22 @@ public class Reverse_Print_String {
         reversePrint_2(s);
         System.out.println();
         reversePrint_3(s);
+
+        int t = 0;
+        List<TreeNode> res = new ArrayList<>();
+        res.add(null);
+        for (TreeNode n : res) {
+            t++;
+            System.out.println("I am here." + t);
+        }
+
+        System.out.println("");
+
+        Pair<Integer, Integer> pair1 = new Pair<>(1, 2);
+        Pair<Integer, Integer> pair2 = new Pair<>(1, 2);
+        Pair<Integer, Integer> pair3 = new Pair<>(2, 3);
+
+        System.out.println(pair1 == pair2);
+        System.out.println(pair1.equals(pair2));
     }
 }
