@@ -57,7 +57,7 @@ public class LC_52_N_Queens_II {
     }
 }
 
-// brute force
+// brute force using backtracking as template - will backtrack when reach to each solution candidate
 // use a Map to track if it is valid for each complete solution candidate
 class LC_52_N_Queens_II_v2 {
 
