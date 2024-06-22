@@ -2,11 +2,51 @@ package module_3_recursion_I_and_II;
 
 import java.util.*;
 
+public class LC_40_Combination_Sum_II {
+    /**
+     * Key data structure to implement in Java:
+     *   - Tuple (key : value)
+     *   - Ordered set of tuples (v.s. HashMap (unordered set of tuples))
+     *
+     * Below is an example
+     * */
+    public static void main(String[] args) {
+        // given an example array
+        int[] candidates = {1, 2, 2, 3, 3, 3, 4};
+
+        // Step 1: Count occurrences of each candidate using hashmap
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < candidates.length; i++) {
+            if (!map.containsKey(candidates[i])) {
+                map.put(candidates[i], 1);
+            } else {
+                int originalFrequency = map.get(candidates[i]);
+                map.put(candidates[i], originalFrequency + 1);
+            }
+        }
+
+        // Step 2: convert the hashmap to an ordered set of tuples (not sorted, but in sequence)
+        List<int[]> orderedTupleSet = new ArrayList<>();
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            int[] tuple = new int[2];
+            tuple[0] = entry.getKey();
+            tuple[1] = entry.getValue();
+
+            orderedTupleSet.add(tuple);
+        }
+
+        // print the list of tuples
+        for (int[] tuple : orderedTupleSet) {
+            System.out.println("Number: " + tuple[0] + ", Frequency: " + tuple[1]);
+        }
+    }
+}
+
 // N is the length of input array
 // time: O(2^N)
 // space: O(N) + O(N) = O(N)
 // see note
-public class LC_40_Combination_Sum_II_solution_1_sort_array {
+class LC_40_Combination_Sum_II_solution_1_sort_array {
 
     int[] sortedCandidates;
 
@@ -88,45 +128,6 @@ public class LC_40_Combination_Sum_II_solution_1_sort_array {
             int length = solutionCandidate.size();
             solutionCandidate.remove(length - 1);
             currSum -= sortedCandidates[i];
-        }
-    }
-
-
-    /**
-     * Key data structure to implement in Java:
-     *   - Tuple (key : value)
-     *   - Ordered set of tuples (v.s. HashMap (unordered set of tuples))
-     *
-     * Below is an example
-     * */
-    public static void main(String[] args) {
-        // given an example array
-        int[] candidates = {1, 2, 2, 3, 3, 3, 4};
-
-        // Step 1: Count occurrences of each candidate using hashmap
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < candidates.length; i++) {
-            if (!map.containsKey(candidates[i])) {
-                map.put(candidates[i], 1);
-            } else {
-                int originalFrequency = map.get(candidates[i]);
-                map.put(candidates[i], originalFrequency + 1);
-            }
-        }
-
-        // Step 2: convert the hashmap to an ordered set of tuples (not sorted, but in sequence)
-        List<int[]> orderedTupleSet = new ArrayList<>();
-        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            int[] tuple = new int[2];
-            tuple[0] = entry.getKey();
-            tuple[1] = entry.getValue();
-
-            orderedTupleSet.add(tuple);
-        }
-
-        // print the list of tuples
-        for (int[] tuple : orderedTupleSet) {
-            System.out.println("Number: " + tuple[0] + ", Frequency: " + tuple[1]);
         }
     }
 }
