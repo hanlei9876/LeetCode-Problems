@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // backtracking - this is based on the solution to LC-79 word search
-// time: O(N * 2N)
+// time: O(N * 2^N)
 //   - Subsets: 2^N, since each element could be absent or present.
 //   - for each subset, at maximum, it will take N nodes (of recursion tree) to build, and will take N time to copy to results
 // space: O(N) = O(N + N) - max height of recursion tree + max length of solutionCandidate
