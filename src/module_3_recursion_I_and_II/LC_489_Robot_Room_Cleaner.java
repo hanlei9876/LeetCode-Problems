@@ -25,7 +25,7 @@ import javafx.util.Pair;
 // Must see the note for complexity analysis
 // time: O(N - M)
 // space: O(N - M)
-public class LC_489_Robot_Room_Cleaner_Hard {
+public class LC_489_Robot_Room_Cleaner {
 
     // add robot to be global variable within class, so all methods can access to it
     Robot robot;

@@ -55,7 +55,8 @@ public class LC_77_Combinations {
             int neededNum = k - candidateList.size();
             int availableNum = n - i + 1;
             if (neededNum > availableNum) {
-                continue;
+                // continue;
+                break; // this is faster than "continue"
             }
             /* for optimnization - end */
 
