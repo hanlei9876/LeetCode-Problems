@@ -8,7 +8,7 @@ import java.util.*;
 //   - total number solutions * O(2N) - for each solution, takes O(2N) to copy StringBuilder to a String object. Ignored
 // the total number of solutions is a Catalan Number C(n)
 // Given a full binary tree with height = h, the total amount of nodes in the tree = 2^(h+1) - 1
-// For a complete binary tree of height h, the last level (Level h) has 2^h nodes.
+// For a full binary tree of height h, the last level (Level h) has 2^h nodes.
 
 // space: O(N) = O(N + N)
 //   - tree height - O(2N)
@@ -55,66 +55,75 @@ public class LC_22_Generate_Parentheses {
     }
 
     public static void main(String[] args) {
+        // test StringBuilder
         StringBuilder sb = new StringBuilder();
         sb.append("a");
         sb.append("b");
+        System.out.println(sb); // ab
+        System.out.println(sb.length()); // 2
 
-        System.out.println(sb);
+        sb.deleteCharAt(sb.length() - 1); // index is 0-based
+        System.out.println(sb); // a
 
-        System.out.println(sb.length());
 
-        sb.deleteCharAt(sb.length() - 1);
-        System.out.println(sb);
+        // test if() + else_if() vs if() if()
+        int a = 10;
+        if (a < 20) {
+            System.out.println("first if");
+        } else if (a < 15) {
+            System.out.println("second if"); // not executed
+        }
+
+        int b = 5;
+        if (b > 1) {
+            System.out.println("third if");
+        }
+        if (b > 2) {
+            System.out.println("forth if");
+        }
+
+
+        // test StringBuilder.setLength()
+        // If the new length is less than the current length, the StringBuilder is truncated to the new length.
+        // If the new length is greater than the current length, the StringBuilder is extended and filled with null characters (\0).
+        StringBuilder sb1 = new StringBuilder("hello world");
+
+        // Truncate to length 5
+        sb1.setLength(5);
+        System.out.println(sb1.toString());  // Outputs "hello"
+
+        // Extend to length 10, adding null characters
+        sb1.setLength(10);
+        System.out.println(sb1.toString());  // Outputs "hello\0\0\0\0\0"
     }
 }
 
 // recursion to iteration for backtrack solution
+// key points to do it:
+//   - use stack/queue to hold arguments of recursion function
+//   - write loop to iterate stack/queue to simulate call stack movement
+//
+// for backtracking recursion, the challenges are:
+//   - solutionCandidate is part of arguments
+//   - revert solutionCandidate to last state (backtrack) when finishing recursion function call
+//
+// solution: stack - DFS
+// time: upper limit - total amount of nodes * N + nodes of last level * N
+//   - Given a full binary tree with height = N, the total amount of nodes in the tree = 2^(N+1) - 1
+//   - For a full binary tree of height N, the last level (Level N) has 2^N nodes.
+// space: O(N^2) for upper limit
+//   - stack max height = N. So, upper limit is each stack space has max length solution candidate - O(N^2)
+//   - res is not included
 class LC_22_Generate_Parentheses_v2 {
 
-    public List<String> generateParenthesis(int n) {
-        List<String> res = new ArrayList<>();
-        StringBuilder solutionCandidate = new StringBuilder();
-
-        // base case - Part 1/2 - can be omitted
-        if (solutionCandidate.length() == 2 * n) {
-            res.add(solutionCandidate.toString());
-            return res;
-        }
-
-        Stack<Map<String, Integer>> stack = new Stack<>();
-        Map<String, Integer> map = new HashMap<>();
-        map.put("leftCount", 0);
-        map.put("rightCount", 0);
-        stack.push(map);
-
-        while (!stack.empty()) {
-            // base case - Part 2/2
-            if (solutionCandidate.length() == 2 * n) {
-                res.add(solutionCandidate.toString());
-                continue;
-            }
-
-            // recursion relation
-            Map<String, Integer> args = stack.pop();
-            int leftCount = args.get("leftCount");
-            if (leftCount < 3) {
-                solutionCandidate.append("(");
-                args.put("leftCount", leftCount + 1);
-            }
-        }
-
-        return null;
-    }
-}
-
-class Solution_ChatGPT {
+    // define inner class to hold al arguments
     class State {
         StringBuilder solutionCandidate;
         int leftCount;
         int rightCount;
 
         State(StringBuilder solutionCandidate, int leftCount, int rightCount) {
-            this.solutionCandidate = new StringBuilder(solutionCandidate);
+            this.solutionCandidate = solutionCandidate;
             this.leftCount = leftCount;
             this.rightCount = rightCount;
         }
@@ -126,26 +135,50 @@ class Solution_ChatGPT {
         stack.push(new State(new StringBuilder(), 0, 0));
 
         while (!stack.isEmpty()) {
-            State current = stack.pop();
+            State currState = stack.pop();
 
-            if (current.solutionCandidate.length() == 2 * n) {
-                res.add(current.solutionCandidate.toString());
+            // base case
+            if (currState.solutionCandidate.length() == 2 * n) {
+                res.add(currState.solutionCandidate.toString());
                 continue;
             }
 
-            if (current.leftCount < n) {
-                State newState = new State(current.solutionCandidate, current.leftCount + 1, current.rightCount);
-                newState.solutionCandidate.append("(");
+            if (currState.leftCount < currState.rightCount) {
+                continue;
+            }
+
+            if (currState.rightCount < n) {
+                StringBuilder sb =  new StringBuilder(currState.solutionCandidate); // cost time + space
+                sb.append(")");
+                State newState = new State(sb, currState.leftCount, currState.rightCount + 1);
                 stack.push(newState);
             }
 
-            if (current.rightCount < current.leftCount) {
-                State newState = new State(current.solutionCandidate, current.leftCount, current.rightCount + 1);
-                newState.solutionCandidate.append(")");
+            if (currState.leftCount < n) {
+                StringBuilder sb =  new StringBuilder(currState.solutionCandidate); // cost time + space
+                sb.append("(");
+                State newState = new State(sb, currState.leftCount + 1, currState.rightCount);
                 stack.push(newState);
             }
         }
 
         return res;
+    }
+
+    public static void main(String[] args) {
+        // test: StringBuilder sb2 = new StringBuilder(sb1);
+        LC_22_Generate_Parentheses_v2 solution = new LC_22_Generate_Parentheses_v2();
+        System.out.println(solution.generateParenthesis(2));
+
+        StringBuilder sb1 = new StringBuilder("abc");
+        sb1.append("d");
+        System.out.println(sb1); // abcd
+
+        StringBuilder sb2 = new StringBuilder(sb1);
+        sb2.append("hhh");
+
+        System.out.println(sb1); // abcd
+        System.out.println(sb2); // abcdhhh
+        System.out.println(sb1 == sb2); // false
     }
 }
