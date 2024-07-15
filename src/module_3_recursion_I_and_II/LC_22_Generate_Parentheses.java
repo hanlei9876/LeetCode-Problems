@@ -2,11 +2,12 @@ package module_3_recursion_I_and_II;
 
 import java.util.*;
 
+// solution 1 - backtrack
 // time:
 // time upper bound O(2^(2N+1) - 1) + O(2N * 2^N) = O(N * 2^N)
 //   - total nodes in tree = total number of solutions * 2N
 //   - total number solutions * O(2N) - for each solution, takes O(2N) to copy StringBuilder to a String object. Ignored
-// the total number of solutions is a Catalan Number C(n)
+// the total number of solutions is nth Catalan Number C(n)
 // Given a full binary tree with height = h, the total amount of nodes in the tree = 2^(h+1) - 1
 // For a full binary tree of height h, the last level (Level h) has 2^h nodes.
 
@@ -98,7 +99,9 @@ public class LC_22_Generate_Parentheses {
     }
 }
 
-// recursion to iteration for backtrack solution
+
+
+// solution 2 - recursion to iteration for backtrack solution
 // key points to do it:
 //   - use stack/queue to hold arguments of recursion function
 //   - write loop to iterate stack/queue to simulate call stack movement
@@ -180,5 +183,78 @@ class LC_22_Generate_Parentheses_v2 {
         System.out.println(sb1); // abcd
         System.out.println(sb2); // abcdhhh
         System.out.println(sb1 == sb2); // false
+    }
+}
+
+
+// solution 3 - brute force - create all possible combinations, then validate each of them
+// use queue to implement BFS
+//
+// Complexity - see the graph in my note
+// time: O(n * 2^(2n))
+//  -  2^(2n) unique strings to build, each size is 2n - O(n * 2^(2n))
+//  -  iterate each formed string for validation -
+// space: O(n * 2^(2n))
+//   - res is counted
+//   - max size oof queue - 2n * total amount of leaf nodes at last level.
+//   - The height of full tree is 2*n >> total amount of leaf nodes at last level is 2^(2n)
+class LC_22_Generate_Parentheses_V3 {
+
+    private boolean isValid(String s) {
+        int leftCount = 0;
+
+        for (char c : s.toCharArray()) {
+            if (leftCount == -1)
+                return false;
+
+            if (c == '(') {
+                leftCount++;
+            } else {
+                leftCount--;
+            }
+        }
+
+        return leftCount == 0;
+    }
+
+    public List<String> generateParenthesis(int n) {
+        List<String> res = new ArrayList<>();
+        Queue<String> queue = new LinkedList<>(Arrays.asList(""));
+
+        while (!queue.isEmpty()) {
+            String currString = queue.poll();
+
+            if (currString.length() == 2 * n) {
+                if (isValid(currString)) {
+                    res.add(currString);
+                }
+                continue;
+            }
+
+            queue.offer(currString + "(");
+            queue.offer(currString + ")");
+        }
+
+        return res;
+    }
+
+    // test Arrays.asList()
+    // This method acts as bridge between array-based and collection-based APIs, in combination with Collection.toArray().
+    public static void main(String[] args) {
+        String[] array = {"a", "b", "c"};
+
+        List<String> list = Arrays.asList(array);
+
+        System.out.println("List: " + list);
+
+        list.set(0, "z");
+        System.out.println("Modified List: " + list);
+
+        System.out.println("Modified Array: " + Arrays.toString(array));
+
+        String s1 = "ab";
+        String s2 = s1 + "c";
+        System.out.println(s1);
+        System.out.println(s2);
     }
 }
