@@ -198,7 +198,7 @@ class LC_22_Generate_Parentheses_v2 {
 //   - res is counted
 //   - max size oof queue - 2n * total amount of leaf nodes at last level.
 //   - The height of full tree is 2*n >> total amount of leaf nodes at last level is 2^(2n)
-class LC_22_Generate_Parentheses_V3 {
+class LC_22_Generate_Parentheses_v3 {
 
     private boolean isValid(String s) {
         int leftCount = 0;
@@ -256,5 +256,50 @@ class LC_22_Generate_Parentheses_V3 {
         String s2 = s1 + "c";
         System.out.println(s1);
         System.out.println(s2);
+    }
+}
+
+
+// solution 4 - Divide & Conquer
+// each generated solution is valid
+// time: O(C(n))
+// space: O(n^2) = O(n) + O(n*n)
+//   - max height of recursion stack - O(n)
+//   - cache max height n, each space is 2n at maximum
+
+class LC_22_Generate_Parentheses_v4 {
+
+    Map<Integer, List<String>> cache =  new HashMap<>();
+
+    public List<String> generateParenthesis(int n) {
+        // memoization
+        if (cache.containsKey(n)) {
+            return cache.get(n);
+        }
+
+        // base case
+        if (n == 0) {
+            List<String> answer = new ArrayList<>(Arrays.asList(""));
+            cache.put(n, answer); // memoization
+            return answer;
+        }
+
+        // recursion relation
+        List<String> answer = new ArrayList<>();
+
+        for (int leftIndex = 0; leftIndex < n; leftIndex++) {
+            List<String> leftList = generateParenthesis(leftIndex);
+
+            for (String leftString : leftList) {
+                List<String> rightList = generateParenthesis(n - leftIndex - 1);
+
+                for (String rightString : rightList) {
+                    answer.add("(" + leftString + ")" + rightString);
+                }
+            }
+        }
+
+        cache.put(n, answer); // memoization
+        return answer;
     }
 }
