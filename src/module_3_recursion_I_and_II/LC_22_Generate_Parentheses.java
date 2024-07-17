@@ -289,10 +289,9 @@ class LC_22_Generate_Parentheses_v4 {
 
         for (int leftIndex = 0; leftIndex < n; leftIndex++) {
             List<String> leftList = generateParenthesis(leftIndex);
+            List<String> rightList = generateParenthesis(n - leftIndex - 1);
 
             for (String leftString : leftList) {
-                List<String> rightList = generateParenthesis(n - leftIndex - 1);
-
                 for (String rightString : rightList) {
                     answer.add("(" + leftString + ")" + rightString);
                 }
