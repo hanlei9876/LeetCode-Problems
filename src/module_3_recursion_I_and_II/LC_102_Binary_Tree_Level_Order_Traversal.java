@@ -27,12 +27,15 @@ class LC_102_Binary_Tree_Level_Order_Traversal_recursion {
 
     // we only handle a tree that is not null
     private void helper(TreeNode node, int level) {
+        // check: level matches list.size() ??
         if (res.size() == level) {
             res.add(new ArrayList<>());
         }
 
+        // add node
         res.get(level).add(node.val);
 
+        // handle next level
         if (node.left != null) {
             helper(node.left, level + 1);
         }
@@ -40,6 +43,21 @@ class LC_102_Binary_Tree_Level_Order_Traversal_recursion {
         if (node.right != null) {
             helper(node.right, level + 1);
         }
+
+        // base case: if node.left == null || node.right == null >> return;
+    }
+
+    public static void main(String[] args) {
+        List<Integer> list = new ArrayList<>();
+        list.add(3);
+        list.add(4);
+        System.out.println(list); // [3, 4]
+
+        list.add(null);
+        System.out.println(list); // [3, 4, null]
+
+        list.add(6);
+        System.out.println(list); // [3, 4, null, 6]
     }
 }
 
@@ -67,7 +85,7 @@ class LC_102_Binary_Tree_Level_Order_Traversal_iteration{
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
         int levelIndex = 0;
-        while (!queue.isEmpty()) {
+        while (!queue.isEmpty()) { // each single iteration handles all nodes at one single level
             // add list to hold all nodes in a level
             res.add(new ArrayList<>());
 
