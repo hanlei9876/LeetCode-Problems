@@ -3,6 +3,7 @@ package module_3_recursion_I_and_II;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import java.util.LinkedList;
 
 public class LC_145_Binary_Tree_Postorder_Traversal {
 }
@@ -34,11 +35,11 @@ class LC_145_Binary_Tree_Postorder_Traversal_recursion {
 }
 
 
-// Solution-2: iteration - stack
+// Solution-2: iteration - stack + stack
 // time: O(N)
 // space: O(N) in worst case, where input is a skewed tree
 //    where N is the total number of nodes in tree
-class LC_145_Binary_Tree_Postorder_Traversal_iteration {
+class LC_145_Binary_Tree_Postorder_Traversal_iteration_v1 {
 
     // solution-2.1 - using 2 stacks
     public List<Integer> postorderTraversal_v1(TreeNode root) {
@@ -81,5 +82,54 @@ class LC_145_Binary_Tree_Postorder_Traversal_iteration {
         }
 
         return res;
+    }
+}
+
+
+// Solution-2: iteration - stack + doubly linked list
+// directly return doubly linked list as result
+// time: O(N)
+// space:
+//   - O(h) - average
+//   - O(N/2) >> O(N) - worst case is right skewed tree
+//   - O(1) - best case is left skewed tree
+
+class LC_145_Binary_Tree_Postorder_Traversal_iteration_v2 {
+
+    public List<Integer> postorderTraversal(TreeNode root) {
+        // create doubly linked list to hold result
+        LinkedList<Integer> res = new LinkedList<>();
+
+        if (root == null) {
+            return res;
+        }
+
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+
+            res.addFirst(node.val);
+
+            if (node.left != null) {
+                stack.push(node.left);
+            }
+            if (node.right != null) {
+                stack.push(node.right);
+            }
+        }
+
+        return res;
+    }
+
+    public static void main(String[] args) {
+        // doubly linked list
+        LinkedList<Integer> list = new LinkedList<>();
+
+        list.addFirst(1);
+        list.addFirst(2);
+        list.addLast(4);
+
+        System.out.println(list); // [2, 1, 4]
     }
 }
