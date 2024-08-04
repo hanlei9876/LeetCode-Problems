@@ -95,7 +95,7 @@ public class LC_50_Pow_x_n {
         }
     }
 
-    // solution-4: iteration + binary exponentiation (mimic recursion) - this solution is hard to understand
+    // solution-4: iteration + binary exponentiation (binary search, not recursion to iteration) - this solution is hard to understand
     // n must be converted from int to long, as n's range is 2^(-31) <= n <= n(31) - 1, when n is the negative bound, -n will overflow
     // see more notes
     // time: O(logN)
