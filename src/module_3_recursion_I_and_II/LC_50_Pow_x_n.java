@@ -95,8 +95,36 @@ public class LC_50_Pow_x_n {
         }
     }
 
-    // solution-4: iteration + binary exponentiation (mimic recursion)
-    // time: O()
-    // space: O()
-    public double myPow_4(double x, int n) {return 0.0;}
+    // solution-4: iteration + binary exponentiation (mimic recursion) - this solution is hard to understand
+    // n must be converted from int to long, as n's range is 2^(-31) <= n <= n(31) - 1, when n is the negative bound, -n will overflow
+    // see more notes
+    // time: O(logN)
+    // space: O(1)
+    public double myPow_4(double x, int n) {
+        long nn = (long) n;
+
+        if (nn == 0) {
+            return 1;
+        }
+
+        if (nn < 0) {
+            nn = nn * (-1); // as n's range is 2^(-31) <= n <= n(31) - 1, when n is the negative bound, -n will overflow
+            x = 1 / x;
+        }
+
+        // now n > 0
+        double res = 1.0;
+
+        while (nn > 0) {
+            if (nn % 2 == 1) {
+                res = res * x;
+                nn--;
+            }
+
+            x = x * x;
+            nn = nn / 2;
+        }
+
+        return res;
+    }
 }
