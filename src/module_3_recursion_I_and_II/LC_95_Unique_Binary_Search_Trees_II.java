@@ -24,6 +24,9 @@ import javafx.util.Pair;
  */
 
 // v1: recursion - no memorization
+// notice this solution is different from backtracking
+//   - backtracking will try every possible combination that is potentially a solution
+//   - this solution will only form all combinations that are solutions, it won't form a combination that is not solution
 public class LC_95_Unique_Binary_Search_Trees_II {
     public List<TreeNode> generateTrees(int n) {
         return allPossibleTrees(1, n);
@@ -58,7 +61,7 @@ public class LC_95_Unique_Binary_Search_Trees_II {
 // v2: recursion - with memorization to optimize space
 // complexity:
 // Time complexity: O(C(n)), where C is Catalan number.
-//Space complexity: O(C(n)), where C is Catalan number.
+// Space complexity: O(C(n)), where C is Catalan number.
 class LC_95_Unique_Binary_Search_Trees_II_v2 {
 
     Map<Pair<Integer, Integer>, List<TreeNode>> memo = new HashMap<>();
