@@ -38,7 +38,7 @@ public class LC_779_Kth_Symbol_in_Grammar {
         return prev.get(k-1);
     }
 
-    // solution 2: recursion - derive from its parent value
+    // solution 2: recursion - derive from its parent value (not recommended)
     // time: O(n) - n is the level of row
     // space: O(n)
     public int kthGrammar_2(int n, int k) {
@@ -81,7 +81,8 @@ public class LC_779_Kth_Symbol_in_Grammar {
         }
     }
 
-    // solution 4: recursion to iteration for pattern - flip parent bits
+    // solution 4: recursion to iteration - without using stack for space optimization
+    // use loop to iterate from bottom to top, so as to get answer
     // time: O(n)
     // space: O(1)
     public int kthGrammar4(int n, int k) {
@@ -89,11 +90,13 @@ public class LC_779_Kth_Symbol_in_Grammar {
 
         // below, we start to maintain val, n, k
         int val = 0; // we assume val == 0
+        // iterate from n to 1
         while (n > 1) {
             int len = (int) Math.pow(2, n - 1);
             if (k <= len/2) {
                 // do nothing
             } else {
+                // val = 1 - val;
                 val = (val == 0) ? 1 : 0; // flip val
                 k = k - len/2;
             }
@@ -107,11 +110,11 @@ public class LC_779_Kth_Symbol_in_Grammar {
 
     public static void main(String[] args) {
         int a = 1;
-        System.out.println(a>>1);
+        System.out.println(a>>1); // 0
     }
 }
 
-// solution 5: recursion - binary search tree optimization
+// solution 5: recursion - binary search tree - (NOT YET implemented, need to do this after learning binary search tree)
 // time: O(n)
 // space: O(n)
 class LC_779_Solution_4 {
