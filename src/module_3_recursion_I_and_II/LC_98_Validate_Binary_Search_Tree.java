@@ -91,3 +91,75 @@ class LC_98_Validate_Binary_Search_Tree_v2 {
         return true;
     }
 }
+
+
+
+// solution-3: Inorder traverse tree >> if obtaining sorted list, then this tree is BST, Bottom-up Inorder DFS - implement as recursion
+//
+// time: O(N) - we need to traverse each single node of the tree
+// space: O(tree's height) - see LC_144
+//              - O(logN) in average case
+//              - O(N) in the worst case for left-skewed tree or right-skewed tree
+class LC_98_Validate_Binary_Search_Tree_v3 {
+
+    Integer prev = null; // Integer to enable null value
+
+    public boolean isValidBST(TreeNode root) {
+        return inorder(root);
+    }
+
+    private boolean inorder(TreeNode node) {
+        // base case
+        if (node == null)
+            return true;
+
+        // recursion relation
+        boolean isLeftBST = inorder(node.left);
+
+        if (!isLeftBST)
+            return false;
+
+        if (prev != null && prev >= node.val)
+            return false;
+
+        prev = node.val;
+
+        return inorder(node.right);
+    }
+}
+
+
+// solution-4: Inorder traverse tree >> if obtaining sorted list, then this tree is BST, Bottom-up Inorder DFS - implement as iteration
+//
+// time: O(N) - we need to traverse each single node of the tree
+// space: O(tree's height) - see LC_94
+//              - O(logN) in average case
+//              - O(N) in the worst case for left-skewed tree
+//              - O(1) in the best case for right-skewed tree
+class LC_98_Validate_Binary_Search_Tree_v4 {
+
+    public boolean isValidBST(TreeNode root) {
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode curr = root;
+        Integer prev = null;
+
+        while (curr != null || !stack.isEmpty()) {
+            while (curr != null) {
+                stack.push(curr);
+                curr = curr.left;
+            }
+
+            curr = stack.pop();
+
+            // validating BST
+            if (prev != null && prev >= curr.val) {
+                return false;
+            }
+            prev = curr.val;
+
+            curr =  curr.right;
+        }
+
+        return true;
+    }
+}

@@ -37,7 +37,8 @@ class LC_94_Binary_Tree_Inorder_Traversal_recursion {
 // When we do the DFS, we need to know where to backtrack to (that's why we normally keep a stack).
 // time: O(N) - visit each node exactly once
 // space: - O(h) = O(logN) in average case, h is tree height
-//        - O(N) in worst case, where input is a skewed tree
+//        - O(N) in worst case, where input is a left-skewed tree
+//        - O(1) in the best case for right-skewed tree
 //    where N is the total number of nodes in tree
 class LC_94_Binary_Tree_Inorder_Traversal_iteration {
 
