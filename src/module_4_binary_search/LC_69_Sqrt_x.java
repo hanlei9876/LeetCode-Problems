@@ -4,7 +4,9 @@ package module_4_binary_search;
 public class LC_69_Sqrt_x {
 
     // solution 1: binary search
-    // prerequisite: we need to narrow down the initial search space: L=2, R=x/2 (instead of R=x)
+    // the whole idea is to search the number a in the search space 2 ~ x, where a^2 == x, or a^2 < x && (a+1)^2 > x
+    // prerequisite: we can optimize the initial search space, from 2 ~x down to 2 ~ x/2
+    // we need to narrow down the initial search space: L=2, R=x/2 (instead of R=x)
     // x:        2  3  4  5  6  7  8  9  10 ... 15 ... 100
     // sqrt(x):  1  1  2  2  2  2  2  3  3  ... 3  ... 10
     // x/2 :     1  1  2  2  3  3  4  4  5  ... 7  ... 50
@@ -17,7 +19,7 @@ public class LC_69_Sqrt_x {
         }
 
         int left = 2;
-        int right = x / 2;
+        int right = x / 2; // or int right = x - 1;
         while (left <= right) {
             int mid = left + (right - left) / 2; // don't use (left + right)/2 to avoid int overflow
             long num = (long) mid * mid; // don't use int, to avoid int overflow
