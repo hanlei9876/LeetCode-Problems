@@ -46,7 +46,34 @@ public class LC_374_Guess_Number_Higher_or_Lower {
     }
 
     // solution 3: ternary search (三分查找)
+    // time: O(logn), where log's base = 3
+    // space: O(1)
+    // Ternary Search is worse than Binary Search,
+    // as Ternary Search does more comparisons than Binary Search in the worst case (see proof in LeetCode solution).
+    public int guessNumber_v3(int n) {
+        int left = 1;
+        int right = n;
 
+        while (left <= right) {
+            int mid1 = left + (right - left) / 3;
+            int mid2 = right - (right - left) / 3;
+
+            if (guess(mid1) == 0) {
+                return mid1;
+            } else if (guess(mid2) == 0) {
+                return mid2;
+            } else if (guess(mid1) == -1) {
+                right = mid1 - 1;
+            } else if (guess(mid2) == 1) {
+                left = mid2 + 1;
+            } else {
+                left = mid1 + 1;
+                right = mid2 - 1;
+            }
+        }
+
+        return -1;
+    }
 
 
     // mock guess to avoid compiler error
