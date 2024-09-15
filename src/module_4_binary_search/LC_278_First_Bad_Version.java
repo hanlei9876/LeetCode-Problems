@@ -50,6 +50,7 @@ public class LC_278_First_Bad_Version {
         int left = 1;
         int right = n;
 
+        // if we set while (left <= right), then this will be infinite loop
         while (left < right) {
             int mid = left + (right - left) / 2;
 
