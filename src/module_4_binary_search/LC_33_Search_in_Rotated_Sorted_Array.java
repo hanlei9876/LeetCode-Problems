@@ -13,12 +13,12 @@ public class LC_33_Search_in_Rotated_Sorted_Array {
     // time: O(logN)
     // space: O(1)
     public int search_v1(int[] nums, int target) {
-        // find pivot using binary search (template)
+        // find pivot using binary search (template) - see LC-153 for template 2 of Binary Search
         int n = nums.length;
         int left = 0;
         int right = n - 1;
 
-        while (left <= right) {
+        /*while (left <= right) {
             int mid = left + (right - left) / 2;
 
             // when (nums[mid] == nums[n - 1], we move right. This ensures left is pivot
@@ -27,7 +27,19 @@ public class LC_33_Search_in_Rotated_Sorted_Array {
             } else {
                 right = mid - 1;
             }
+        }*/
+
+        // use standard template 2 from LeetCode (see LC-153)
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+
+            if (nums[mid] > nums[n - 1]) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
         }
+        // left & right will meet when out of loop
 
         int pivot = left;
 
