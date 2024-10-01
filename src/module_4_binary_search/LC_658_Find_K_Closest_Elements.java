@@ -10,6 +10,7 @@ import java.util.List;
 
 public class LC_658_Find_K_Closest_Elements {
 
+    // solution 1: sort using Collections.sort() API
     // time: O(N) + O(NlogN) + O(klogk)
     // space: O(N) + O(logN) + O(logk) + O(k)
     public List<Integer> findClosestElements(int[] arr, int k, int x) {
