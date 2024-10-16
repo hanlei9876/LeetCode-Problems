@@ -110,6 +110,35 @@ public class LC_658_Find_K_Closest_Elements {
         return res;
     }
 
+
+    // solution 3: one binary search to left bound of k space (template)
+    // time: O(log(N - k) + k)
+    // space: O(k) for res
+    public List<Integer> findClosestElements_v3(int[] arr, int k, int x) {
+        int left = 0;
+        int right = arr.length - k;
+
+        while (left < right) {
+            // we need to consider arr[mid] & arr[mid + k] - ONLY one of them could possibly be in a final answer (left bound)
+            int mid = left + (right - left) / 2;
+
+            // here, we should NOT compare: Math.abs(x - arr[mid]) vs Math.abs(x - arr[mid + k])
+            // Instead, we should consider which of arr[mid] & arr[mid + k] is closer to k
+            if (x - arr[mid] > arr[mid + k] - x) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        // left == right is the left bound of k space
+        List<Integer> res = new ArrayList<>();
+
+        for (int i = left; i < left + k; i++) {
+            res.add(arr[i]);
+        }
+
+        return res;
+    }
 }
 
 class My_Experiments_on_Binary_Search {
