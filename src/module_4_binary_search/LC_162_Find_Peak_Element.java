@@ -42,6 +42,7 @@ public class LC_162_Find_Peak_Element {
                 left = mid + 1;
             }
         }
+        // left == right
 
         return left;
     }
