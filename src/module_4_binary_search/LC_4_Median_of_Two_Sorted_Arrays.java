@@ -79,14 +79,17 @@ public class LC_4_Median_of_Two_Sorted_Arrays {
         // create search space for nums1
         int L = 0;
         int R = m;
-        while (L <= R) { // when L == R == split1, it could possibly point to index = m, which meaning entire nums1 is on the left side of merged array
+        while (L <= R) { // when L == R == split1, it could possibly point to index = m, meaning entire nums1 is on the left side of merged array
             // in order to split nums1 & nums2, we do the following to
             //   - assume split1 is first element of right half of nums1
             //   - split2 will be the first element of right half of nums2
             // the median of merged array is not included in the right halves of nums1 & nums2
-            // this is always right, no matter m + n is odd or even:
+            // this is always right, no matter m + n is odd or even
             int split1 = L + (R - L) / 2;
+            // use split1 to derive split2
             int split2 = (m + n + 1) / 2 - split1; // challenging to understand
+            // split1 & split2 are representing the 1st elements of the right-sided part of the arrays respectively,
+            // which forms the merged array's right part
 
             // calculate the 4 indexes to validate if this split is solution: maxLeft1, minRight1, maxLeft2, maxRight2
             int maxLeft1 = (split1 == 0) ? Integer.MIN_VALUE : nums1[split1 - 1];
