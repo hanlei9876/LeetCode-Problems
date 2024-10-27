@@ -59,12 +59,12 @@ public class LC_658_Find_K_Closest_Elements {
         /*
 
         The template produces results according to 2 scenarios:
-        (1) the target value x is in the array
+        (1) the target value x exists in the array
         The template will always find the exact element. For example,
            [1, 3, 6, 6, 6, 10, 15]  x = 3    ==>    result index is L == R == 1
            [1, 3, 6, 6, 6, 10, 15]  x = 6    ==>    result index is L == R == 2
 
-        (2) the target element is NOT in the array
+        (2) the target element does NOT exist in the array
         The template will always find the element right to the target value, which is NOT the closest element to x.
         For example,
            [1, 3, 6, 6, 6, 10, 15]  x = 7    ==>    result index is L == R == 5 (arr[5] is 10)
