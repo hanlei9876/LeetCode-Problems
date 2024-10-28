@@ -1,9 +1,9 @@
-package module_x_hash_table;
+package Helper_Classes;
 
 public class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
 
     TreeNode() {}
 
@@ -15,3 +15,4 @@ public class TreeNode {
         this.right = right;
     }
 }
+
