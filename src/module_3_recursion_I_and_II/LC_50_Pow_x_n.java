@@ -80,6 +80,7 @@ public class LC_50_Pow_x_n {
     }
 
     // this helper method will only handle positive n
+    // n >= 0
     private double pow(double x, int n) {
         // base case
         if (n == 0) return 1;
@@ -101,7 +102,7 @@ public class LC_50_Pow_x_n {
     // time: O(logN)
     // space: O(1)
     public double myPow_4(double x, int n) {
-        long nn = (long) n;
+        long nn = (long) n; // must-do
 
         if (nn == 0) {
             return 1;
@@ -115,6 +116,7 @@ public class LC_50_Pow_x_n {
         // now n > 0
         double res = 1.0;
 
+        // for any number n (n>=2)，if we keep doing n = n/2, we will always come to n = 1, then n =0
         while (nn > 0) {
             if (nn % 2 == 1) {
                 res = res * x;
