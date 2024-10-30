@@ -3,7 +3,7 @@ package module_4_binary_search;
 // x >= 0, x is int
 public class LC_69_Sqrt_x {
 
-    // solution 1: binary search
+    // solution 1: binary search (reference to LC-367)
     // the whole idea is to search the number a in the search space 2 ~ x, where a^2 == x, or a^2 < x && (a+1)^2 > x
     // prerequisite: we can optimize the initial search space, from 2 ~x down to 2 ~ x/2
     // we need to narrow down the initial search space: L=2, R=x/2 (instead of R=x)
