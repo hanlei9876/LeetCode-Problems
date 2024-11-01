@@ -26,6 +26,10 @@ public class LC_153_Find_Minimum_in_Rotated_Sorted_Array {
         }
         // similar to template 1, this template will search each single element in array.
         // after search on all elements is done, we come to left==right.
+        // Now, we can analyze:
+        //   - all elements in [0, left) > nums[n-1]
+        //   - all elements in [right, n-1] <= nums[n-1]
+        // therefore, we can conclude element at left (right) must be the smallest element compared to nums[n-1]
 
         // NOTE: the case below will cause dead loop
         /*
