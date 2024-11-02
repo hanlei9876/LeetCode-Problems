@@ -87,4 +87,10 @@ public class LC_153_Find_Minimum_in_Rotated_Sorted_Array {
 
         return Integer.MAX_VALUE; // we will never reach here, just return whatever
     }
+
+    // solution 3: use the binary search in LC-154
+    // goal: find the minimum element (rotation point) in the array
+    // in order to move L & R, we compare arr[mid] vs arr[R]
+    // time: O(logN)
+    // spce: O(1)
 }
