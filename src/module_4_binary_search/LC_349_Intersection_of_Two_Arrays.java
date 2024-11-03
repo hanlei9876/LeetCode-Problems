@@ -8,10 +8,12 @@ import java.util.Set;
 public class LC_349_Intersection_of_Two_Arrays {
 
 
-    // HashSet.retainAll()
-    // time: O(N) - N is the larger set, as it will iterate through both of the collections
-    // space: O(1) - do it in place
+
     public static void main(String[] args) {
+        // HashSet.retainAll()
+        // time: O(N) - N is the larger set, as it will iterate through both of the collections
+        // space: O(1) - do it in place
+
         // test 1 - Integers
         Set<Integer> set1 = new HashSet<>();
         set1.add(1);
