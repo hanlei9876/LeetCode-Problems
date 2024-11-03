@@ -1,6 +1,8 @@
 package module_4_binary_search;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class LC_349_Intersection_of_Two_Arrays {
@@ -51,5 +53,16 @@ public class LC_349_Intersection_of_Two_Arrays {
         System.out.println(set3); // [me]
         System.out.println(set4); // [me, xxxxxx]
 
+
+
+        // test 3: HashMap.put(key, value)
+        // what will happen if we run map.puy(2, 1) multiple times
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(2, 1);
+        System.out.println(map);
+        map.put(7, 1);
+        System.out.println(map);
+        map.put(2, 1);
+        System.out.println(map);
     }
 }
