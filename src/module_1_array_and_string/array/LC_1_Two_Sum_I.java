@@ -34,12 +34,12 @@ public class LC_1_Two_Sum_I {
 
         for (int i = 0; i < nums.length; i++) {
             // if (map.isEmpty() || !map.containsKey(target - nums[i])) // Each lookup in the table costs only O(1) time.
-            if (!map.containsKey(target - nums[i])) {
-                map.put(nums[i], i);
+            if (!map.containsKey(nums[i])) {
+                map.put(target - nums[i], i);
             } else {
-                res[0] = map.get(target - nums[i]);
+                res[0] = map.get(nums[i]);
                 res[1] = i;
-                return res;
+                break;
             }
         }
 
