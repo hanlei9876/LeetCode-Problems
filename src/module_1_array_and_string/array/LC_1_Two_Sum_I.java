@@ -1,9 +1,9 @@
 package module_1_array_and_string.array;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
 
+// Only one valid answer exists.
 public class LC_1_Two_Sum_I {
 
     // solution-1: brute force - enumerate all possible pairs
@@ -25,10 +25,35 @@ public class LC_1_Two_Sum_I {
         return res;
     }
 
-    // solution-2: use HashMap
-    // time: O(N)
+    // solution-2: use hashmap - two pass (from leetcode official solution)
+    // note how this approach handles duplicate values, say [2, 4, 3, 4, 7] target = 8
+    // time: O(2N) >> O(N)
     // space: O(N)
     public int[] twoSum_2(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        int[] res = new int[2];
+
+        for (int i = 0; i < nums.length; i++) {
+            map.put(nums[i], i);
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            int compliment = target - nums[i];
+
+            if (map.containsKey(compliment) && map.get(compliment) != i) {
+                res[0] = i;
+                res[1] = map.get(compliment);
+                break;
+            }
+        }
+
+        return res;
+    }
+
+    // solution-3: use HashMap - one pass
+    // time: O(N)
+    // space: O(N)
+    public int[] twoSum_3(int[] nums, int target) {
         int[] res = new int[2];
         Map<Integer, Integer> map = new HashMap<>();
 
