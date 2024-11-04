@@ -49,7 +49,7 @@ public class LC_350_Intersection_of_Two_Arrays_II {
     // time: O(m + n) + O(intersection)
     // space: O(min(m, n)) + O(intersection) - res is not counted
     public int[] intersect_2(int[] nums1, int[] nums2) {
-        // optimize space
+        // optimize space -  we use hashmap on the smaller array
         if (nums1.length > nums2.length) {
             return intersect_2(nums2, nums1);
         }
