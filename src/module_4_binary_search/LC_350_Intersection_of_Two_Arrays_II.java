@@ -89,4 +89,15 @@ public class LC_350_Intersection_of_Two_Arrays_II {
 
         return res;
     }
+
+    // follow-up question
+    /*
+    What if elements of nums2 are stored on disk, and the memory is limited such that you cannot load all elements into the memory at once?
+
+      1. If nums1 fits into the memory, we can use Approach 2 to collect counts for nums1 into a hash map. Then, we can sequentially load and process nums2.
+
+      2. If neither of the arrays fit into the memory, we can apply some partial processing strategies:
+         - Split the numeric range into subranges that fits into the memory. Modify Approach 2 to collect counts only within a given subrange, and call the method multiple times (for each subrange).
+         - Use an external sort for both arrays. Modify Approach 1 to load and process arrays sequentially.
+    * */
 }
