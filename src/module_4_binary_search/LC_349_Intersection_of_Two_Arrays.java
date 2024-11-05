@@ -220,4 +220,75 @@ public class LC_349_Intersection_of_Two_Arrays {
 
         return resultArray;
     }
+
+
+    // solution 6: binary search (check binary search solution in LC-350 first)
+    //    >> search shorter array nums1
+    //    >> for each element in nums1, do binary search on nums2 to find first occurrence of this element
+    //    >> when search is done, move L ro right for one step for next binary search
+    // time: O(mlogm) + O(nlogn) + O(mlogn) + O(intersection)
+    // space: O(logm) + O(logn) + O(intersection) - res is not counted
+    public int[] intersect_3(int[] nums1, int[] nums2) {
+        if (nums1.length > nums2.length) {
+            return intersect_3(nums2, nums1);
+        }
+
+        List<Integer> resList = new ArrayList<>();
+
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+
+        int leftSearchBoundary = 0;
+        int i = 0;
+        while (i < nums1.length) { // difference 1 compared to in LC-349
+            if (i > 0 && nums1[i - 1] == nums1[i]) {
+                i++;
+                continue;
+            }
+
+            int targetIndex = binarySearch(nums2, nums1[i], leftSearchBoundary);
+
+            if (targetIndex != -1) {
+                resList.add(nums1[i]);
+                leftSearchBoundary = targetIndex + 1;
+            }
+
+            i++;
+        }
+
+        // convert list to array
+        // don't use return res.stream().mapToInt(i->i).toArray(); >> it is slow
+        int[] res = new int[resList.size()];
+        for (int k = 0; k < resList.size(); k++) {
+            res[k] = resList.get(k);
+        }
+
+        return res;
+    }
+
+    // binary search
+    // goal: find first occurrence of target in the dynamic search scope
+    private int binarySearch(int[] nums, int target, int leftSearchBoundary) {
+        int L = leftSearchBoundary;
+        int R = nums.length - 1;
+
+        while (L <= R) {
+            int mid = L + (R - L) / 2;
+
+            if (nums[mid] == target) { // mid might be or might not the first occurrence in the dynamic search scope
+                if (mid == 0 || nums[mid - 1] != nums[mid]) { // difference 2 compared to in LC-349
+                    return mid; // find first occurrence
+                } else {
+                    R = mid - 1; // mid is certainly not first occurrence
+                }
+            } else if (nums[mid] > target) {
+                R = mid - 1;
+            } else {
+                L = mid + 1;
+            }
+        }
+
+        // target is not found
+        return -1;
+    }
 }
