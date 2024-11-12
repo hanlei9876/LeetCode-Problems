@@ -1,5 +1,7 @@
 package module_4_binary_search;
 
+import java.util.Arrays;
+
 public class LC_719_Find_Kth_Smallest_Pair_Distance {
 
     // prerequisite:
@@ -34,7 +36,7 @@ public class LC_719_Find_Kth_Smallest_Pair_Distance {
     //
     // time: O(N + N^2 + M) >> O(N^2 + M) - N is array length, M is max value in array
     // space: O(M) - caused by bucket
-    public int smallestDistancePair(int[] nums, int k) {
+    public int smallestDistancePair_3(int[] nums, int k) {
         // find max number in the array
         int max = Integer.MIN_VALUE;
         for (int num : nums) {
@@ -64,5 +66,80 @@ public class LC_719_Find_Kth_Smallest_Pair_Distance {
         }
 
         return -1; // we never reach here
+    }
+
+    // solution 4: binary search + dynamic programming
+    // Sorting is crucial because it enables us to efficiently count pairs whose distances <= a given value
+    // use DP to implement the counting process
+    //---  skip this solution deliberately, come back after learning DP  ---//
+
+
+    // solution 5: binary search + sliding window (see example graph in note)
+    //   - do binary search on range of distance of input array [0, max-min]
+    //   - search goal: find the distance D from the range, so that the count of pairs in input array whose distances <= k
+    //   - for each distance-mid in binary search, do sliding window on input array to count how many pairs of input array whose distances <= distance-mid
+    //   - sliding window's prerequisite: array is sorted
+    //
+    // time: O(NlogN) + O(NlogM) - M is the largest number in input array
+    // space: O(logN)
+    public int smallestDistancePair_5(int[] nums, int k) {
+        Arrays.sort(nums);
+
+        // initialize the distance range
+        int minRange = 0;
+        int maxRange = nums[nums.length - 1] - nums[0];
+
+        int L = minRange;
+        int R = maxRange;
+        while (L < R) {
+            int mid =  L + (R - L) / 2;
+
+            int count = countDistances(nums, mid);
+
+            if (count < k) {
+                L = mid + L;
+            } else {
+                // count >= k - for this condition, see note
+                R = mid;
+            }
+        }
+
+        return L; // L == R
+
+    }
+
+    // sliding window on sorted input array (coding template)
+    //  - traverse each pair of input array to count how many pairs of input array whose distances <= distance-mid
+    //  - we must sort nums to use sliding window. Otherwise, it is not working, e.g. count pairs in [1, 6, 1], targetDistance = 2
+    //
+    // time: O(2N) >> O(N)
+    // space: O(1)
+    private static int countDistances(int[] nums, int targetDistance) {
+        int pairCount = 0;
+
+        int low = 0;
+        int high = 1; // low == high is not a valid pair
+        while (high < nums.length) {
+            while (nums[high] - nums[low] > targetDistance) {
+                low++;
+            }
+
+            // (high - low) is the number of qualified pairs between high & low
+            // because all pairs (left, right), (left+1, right), ..., (right-1, right) are valid
+            pairCount = pairCount + (high - low);
+
+            high++;
+        }
+
+        return pairCount;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 1, 3, 7};
+
+        int[] nums_ = {1, 3, 1, 7};
+
+        int count = countDistances(nums, 3);
+        System.out.println(count);
     }
 }
