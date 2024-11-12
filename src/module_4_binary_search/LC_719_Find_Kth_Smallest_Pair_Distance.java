@@ -97,7 +97,7 @@ public class LC_719_Find_Kth_Smallest_Pair_Distance {
             int count = countDistances(nums, mid);
 
             if (count < k) {
-                L = mid + L;
+                L = mid + 1;
             } else {
                 // count >= k - for this condition, see note
                 R = mid;
