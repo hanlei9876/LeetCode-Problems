@@ -15,7 +15,7 @@ public class LC_209_Minimum_Size_Subarray_Sum {
     // time: O(N^2)
     // space: O(1)
     public int minSubArrayLen(int target, int[] nums) {
-        int minlen = 0;
+        int minlen = 0; // Alternative: int minLen = Integer.MAX_VALUE;
 
         for (int i = 0; i <= nums.length; i++) {
             int sum  = 0;
@@ -25,37 +25,39 @@ public class LC_209_Minimum_Size_Subarray_Sum {
                 sum =  sum + nums[j];
 
                 if (sum >= target) { // if window is valid
-                    if (minlen == 0 || j - i + 1 < minlen)
+                    if (minlen == 0 || j - i + 1 < minlen) // Alternative: if (j - i + 1 < minlen)
                         minlen = j - i + 1;
 
-                    break; // break the innner loop to save time
+                    break; // break the inner loop to save time
                 }
             }
         }
 
-        return minlen;
+        return minlen; // Alternative: return (minlen == Integer.MAX_VALUE) ? 0 : minlen;
     }
 
     // solution-2: sliding window
     // definition of "valid window": sum of the window >= target
+    // time: O(2N) >> O(N)
+    // space: O(1)
     public int minSubArrayLen_2(int target, int[] nums) {
-        int minLen = 0; // minimum length of valid window
-        int sum = 0; // sum of the window
+        int minLen = Integer.MAX_VALUE; // minimum length of valid window
+        int currWindowSum = 0; // sum of the window
 
         int L = 0;
         int R = 0;
         while (R < nums.length) {
-            // step-1: add the new element pointed by R in the windows
-            sum = sum + nums[R];
+            // step-1: sync window with currWindowSumadd the new element pointed by R in the windows
+            currWindowSum = currWindowSum + nums[R];
 
-            // step-2: now our window has element inside, which is available to check validity
+            // step-2: now window synced with currWindowSum, it's available to check validity
             //     if the window's sum > target (window is valid), then we record the valid length and contract the window
-            while (sum >= target) {
+            while (currWindowSum >= target) {
                 // since window is valid, update result to maintain result to be always minimum
-                if (minLen == 0 || R - L + 1 < minLen)
+                if (R - L + 1 < minLen)
                     minLen = R - L + 1;
 
-                sum = sum - nums[L]; // maintain the sum of the window
+                currWindowSum = currWindowSum - nums[L]; // sync the sum with the window
                 L++;
             }
 
@@ -63,6 +65,70 @@ public class LC_209_Minimum_Size_Subarray_Sum {
             R++;
         }
 
-        return minLen;
+        return (minLen == Integer.MAX_VALUE) ? 0 : minLen;
+    }
+
+
+    // solution-3: binary search + sliding window variant (fixed-length sliding window)
+    // binary search goal: search in the scope of possible sizes of a sub-array, to find the minimum sub-array size that satisfies its sum >= target
+    // in the binary search, the target sub-array size might /might not exist in the search scope
+    // time: O(N*logN)
+    // space: O(1)
+    public int minSubArrayLen_3(int target, int[] nums) {
+        // for input array, sub-array size scope is [1, nums.length] - this is binary search scope
+        // note: the target sub-array size might exist, or might not exist
+        int L = 1;
+        int R = nums.length;
+
+        while (L < R) {
+            int mid = L + (R - L) / 2;
+
+            int subArraySize = subArrayExist(nums, target, mid);
+
+            if (subArraySize != 0) {
+                R = mid;
+            } else {
+                L = mid + 1;
+            }
+        }
+
+        // post-processing (where L == R):
+        int subArraySize = subArrayExist(nums, target, L);
+
+        return (subArraySize == 0) ? 0 : subArraySize;
+    }
+
+    // sliding window with fixed length - iterate all the sub-arrays in subArraySize
+    // return:
+    //   - if qualified, return size of sub-array
+    //   - if not found, return 0;
+    private int subArrayExist(int[] nums, int target, int subArraySize) {
+        // initialize the sub-array's sum
+        int subArraySum = 0;
+
+        for (int i = 0; i <= subArraySize - 1; i++) {
+            subArraySum = subArraySum + nums[i];
+        }
+
+        // iterate all the sub-arrays in subArraySize
+        int L = 0;
+        int R = subArraySize - 1;
+        while (R < nums.length) {
+            if (subArraySum >= target) {
+                return subArraySize;
+            }
+
+            if (R + 1 == nums.length) { // check if window already reached right boundary
+                break;
+            }
+
+            // move window to right
+            R++;
+            subArraySum = subArraySum + nums[R];
+            subArraySum = subArraySum - nums[L];
+            L++;
+        }
+
+        return 0;
     }
 }
