@@ -83,7 +83,7 @@ public class LC_209_Minimum_Size_Subarray_Sum {
         while (L < R) {
             int mid = L + (R - L) / 2;
 
-            int subArraySize = subArrayExist(nums, target, mid);
+            int subArraySize = subArrayExist(nums, target, mid); // or use subArrayExist_(nums, target, mid)
 
             if (subArraySize != 0) {
                 R = mid;
@@ -93,7 +93,7 @@ public class LC_209_Minimum_Size_Subarray_Sum {
         }
 
         // post-processing (where L == R):
-        int subArraySize = subArrayExist(nums, target, L);
+        int subArraySize = subArrayExist(nums, target, L); // or use subArrayExist_(nums, target, mid)
 
         return (subArraySize == 0) ? 0 : subArraySize;
     }
@@ -127,6 +127,31 @@ public class LC_209_Minimum_Size_Subarray_Sum {
             subArraySum = subArraySum + nums[R];
             subArraySum = subArraySum - nums[L];
             L++;
+        }
+
+        return 0;
+    }
+
+    // (recommend) optimize sliding window - use one pointer (i) ONLY
+    private int subArrayExist_(int[] nums, int target, int subArraySize) {
+        int subArraySum = 0;
+        int i = 0;
+
+        while (i < nums.length) {
+            subArraySum = subArraySum + nums[i]; // sync sum with new sub-array
+
+            if (i < subArraySize - 1) { // the current sub-array's length < subArraySize
+                i++;
+                continue;
+            }
+
+            if (subArraySum >= target) { // validate the sub-array, whose size == subArraySize
+                return subArraySize;
+            }
+
+            subArraySum = subArraySum - nums[i - subArraySize + 1]; // remove the first element of the sub-array
+
+            i++;
         }
 
         return 0;
