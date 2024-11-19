@@ -125,7 +125,7 @@ public class LC_15_3Sum {
     }
 
     // solution-4: no-sort -> find all i-j pairs + HashMap
-    // this solution is running as a follow-up question, like what if we are not allowed to sort the array
+    // this solution is running as a follow-up question, like what if we are not allowed to sort/change the array
     // time: O(N^2)
     // space: O(N), caused by HashMap
     public List<List<Integer>> threeSum_4(int[] nums) {
@@ -157,6 +157,105 @@ public class LC_15_3Sum {
         return new ArrayList(res);
     }
 
+    // solution-5: sort + binary search (time limit exceeded)
+    // sort array >> fix two elements >> binary search for 3rd element
+    // how to remove duplicate triplets? - since array is sorted, duplicate triplets will have exactly the same elements. So, we can use set to remove duplicate triplets
+    // time: O(NlogN) + O((N^2)logN) + O((N^2)logN) - set's size
+    // space: O(logN) + O((N^2)logN) - set's size
+    public static List<List<Integer>> threeSum_5(int[] nums) {
+        Set<List<Integer>> set = new HashSet<>();
+
+        Arrays.sort(nums);
+
+        // fix two elements
+        for (int i = 0; i < nums.length - 2; i++) {
+            for (int j = i + 1; j < nums.length - 1; j++) {
+
+                // use binary search to quickly iterate 3rd element
+                int L = j + 1;
+                int R = nums.length - 1;
+
+                while (L <= R) {
+                    int mid = L + (R - L) / 2;
+                    int currSum = nums[i] + nums[j] + nums[mid];
+
+                    if (currSum == 0) {
+                        List<Integer> sumList = new ArrayList<>();
+                        sumList.add(nums[i]);
+                        sumList.add(nums[j]);
+                        sumList.add(nums[mid]);
+                        set.add(sumList); // remove duplicate triplets
+
+                        // Now we MUST move either pointer L or R so to avoid dead loop. Either will work:
+                        //  1)  L = mid + 1;
+                        //  2)  R = mid - 1;
+                        //  3)  break; - // (recommended) Given j, j are fixed, mid is fixed as well. now if mid is found, we can stop this binary search immediately
+                        // Because, no matter in which side (left ort right) the next duplicate will be, we will also ignore it in result set
+                        break;
+                    } else if (currSum < 0) {
+                        L = mid + 1;
+                    } else {
+                        R = mid - 1;
+                    }
+                }
+            }
+        }
+
+        // time: O(set's size)
+        return new ArrayList(set); // directly convert set to an ArrayList
+    }
+
+    // solution-5.1: sort + binary search - optimize time (recommended)
+    public static List<List<Integer>> threeSum_5_1(int[] nums) {
+        Set<List<Integer>> set = new HashSet<>();
+
+        Arrays.sort(nums);
+
+        // fix two elements
+        for (int i = 0; i < nums.length - 2; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+
+            for (int j = i + 1; j < nums.length - 1; j++) {
+                if (j > i + 1 && nums[j] == nums[j - 1]) { // if j>0, then it's wrong
+                    continue;
+                }
+
+                // use binary search to quickly iterate 3rd element
+                int L = j + 1;
+                int R = nums.length - 1;
+
+                while (L <= R) {
+                    int mid = L + (R - L) / 2;
+                    int currSum = nums[i] + nums[j] + nums[mid];
+
+                    if (currSum == 0) {
+                        List<Integer> sumList = new ArrayList<>();
+                        sumList.add(nums[i]);
+                        sumList.add(nums[j]);
+                        sumList.add(nums[mid]);
+                        set.add(sumList); // remove duplicate triplets
+
+                        // Now we MUST move either pointer L or R so to avoid dead loop. Either will work:
+                        //  1)  L = mid + 1;
+                        //  2)  R = mid - 1;
+                        //  3)  break; - // (recommended) Given j, j are fixed, mid is fixed as well. now if mid is found, we can stop this binary search immediately
+                        // Because, no matter in which side (left ort right) the next duplicate will be, we will also ignore it in result set
+                        break;
+                    } else if (currSum < 0) {
+                        L = mid + 1;
+                    } else {
+                        R = mid - 1;
+                    }
+                }
+            }
+        }
+
+        // time: O(set's size)
+        return new ArrayList(set); // directly convert set to an ArrayList
+    }
+
 
     public static void main(String[] args) {
         Set<Integer> set = new HashSet<>();
@@ -164,5 +263,9 @@ public class LC_15_3Sum {
         boolean b = set.add(1);
         // true - if this set did not already contain the specified element
         // false - if this set already contains the specified element
+
+
+        List<List<Integer>> res = threeSum_5_1(new int[]{-1,0,1,2,-1,-4});
+        System.out.println(res);
     }
 }
