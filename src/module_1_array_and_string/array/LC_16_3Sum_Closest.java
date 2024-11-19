@@ -10,6 +10,8 @@ public class LC_16_3Sum_Closest {
     //     - for the 3sum that's closest to target, there must be one triplet ONLY
     //     - for the 3sum that's second closest to target, there might be one or more triplets.
     //
+    // Unlike LC-15 3Sum, we cannot use a hash set approach, as we are not looking for a fixed value
+    //
     // therefore, the overall strategy:
     // no matter which solution, we need to always figure out to iterate each possible triplet, keep tracking minDistance + closeSum,
     // when the traverse over all triplets is done, we will certainly obtain the unique closest triplet
