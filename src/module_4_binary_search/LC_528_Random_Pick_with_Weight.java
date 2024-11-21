@@ -81,7 +81,7 @@ class Solution_1 {
 }
 
 
-// solution 2: binary search
+// solution 2: binary search (template-2)
 // search goal: find the value from cumSumArray, which is on target's right & closest to target
 // time: O(logN)
 // space: O(N) - cumSumArray's size
@@ -109,7 +109,7 @@ class Solution_2 {
         int randomNum = random.nextInt(sum); // alternatively: int randomNum = sum * Math.random();
         randomNum++; // adjust random range from [0, sum - 1] to [1, sum]
 
-        // step 3: binary search from the sub-range where the random num locates in the cumulative sum array
+        // step 3: binary search to find sub-range in the cumulative sum array, so that the random num locates in sub-range
         int L = 0;
         int R = cumSumArray.length - 1;
 
