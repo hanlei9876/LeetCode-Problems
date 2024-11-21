@@ -35,7 +35,7 @@ public class LC_528_Random_Pick_with_Weight {
     }
 }
 
-// overall strategy: 用纍積的距離表示權重 -  see my note
+// overall strategy: 用累积的距离表示权重 -  see my note
 //   step 1: create cumulative sum array, according to input array
 //   step 2: obtain a random number in range [1, sum]
 //   step 3: search cumulative sum array, to find which sub-scope the random number falls in >> return the corresponding index
