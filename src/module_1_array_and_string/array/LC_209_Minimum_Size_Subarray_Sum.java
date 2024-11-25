@@ -1,5 +1,8 @@
 package module_1_array_and_string.array;
 
+// similar to LC-862
+// LC-209 is a special case of LC-862
+// this problem has array with ALL POSITIVE integers -  this will ensure sliding window's size is monotonic with its sum
 public class LC_209_Minimum_Size_Subarray_Sum {
 
     // solution-0: pure brute force
@@ -17,7 +20,7 @@ public class LC_209_Minimum_Size_Subarray_Sum {
     public int minSubArrayLen(int target, int[] nums) {
         int minlen = 0; // Alternative: int minLen = Integer.MAX_VALUE;
 
-        for (int i = 0; i <= nums.length; i++) {
+        for (int i = 0; i < nums.length; i++) {
             int sum  = 0;
 
             for (int j = i; j < nums.length; j++) {
@@ -47,7 +50,7 @@ public class LC_209_Minimum_Size_Subarray_Sum {
         int L = 0;
         int R = 0;
         while (R < nums.length) {
-            // step-1: sync window with currWindowSumadd the new element pointed by R in the windows
+            // step-1: sync window with currWindowSum by adding the new element pointed by R in the windows
             currWindowSum = currWindowSum + nums[R];
 
             // step-2: now window synced with currWindowSum, it's available to check validity
