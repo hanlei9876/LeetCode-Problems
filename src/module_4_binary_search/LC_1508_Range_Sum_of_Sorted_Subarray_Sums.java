@@ -120,7 +120,7 @@ class solution_3 {
 
         int currWindowSum = 0;
         int currWindowAllSubarraysSum = 0;
-
+        // currWindowAllSubarraysCount == j - i + 1
 
         for (int i = 0, j = 0; j < nums.length; j++) {
             // expand window - sync parameters of current window
