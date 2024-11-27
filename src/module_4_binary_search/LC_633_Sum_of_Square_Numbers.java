@@ -87,6 +87,8 @@ public class LC_633_Sum_of_Square_Numbers {
     //
     // time: O(sqrt(c) * logc)
     // space: O(1)
+    //
+    // NOTE: given int a, if we want to do a*a, we must first cast int to long - (long) a, then do a*a. Otherwise, overflow happens
     public boolean judgeSquareSum_4(int c) {
         for (long a = 0; a * a <= c; a++) { // search range [0, sqrt(c)]
             int num = c - (int) (a * a); // // before doing a*a, we must ensure a is long. Otherwise, there is overflow
