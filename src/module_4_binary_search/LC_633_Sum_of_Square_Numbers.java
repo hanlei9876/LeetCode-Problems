@@ -67,7 +67,7 @@ public class LC_633_Sum_of_Square_Numbers {
     public boolean judgeSquareSum_3(int c) {
         for (int a = 0; a * a <= c; a++) { // search range [0, sqrt(c)]
             int num = c - a * a;
-            double sqrtB = Math.sqrt(num);
+            double sqrtB = Math.sqrt(num); // time: O(lognum)
 
             // check if sqrtB is an int
             if (sqrtB == (int) sqrtB) {
@@ -123,6 +123,29 @@ public class LC_633_Sum_of_Square_Numbers {
                 L = (int) mid + 1;
             } else {
                 R = (int) mid - 1;
+            }
+        }
+
+        return false;
+    }
+
+    // solution 5: two pointers
+    // search a, b at the same time in range of [0, sqrt(c)]
+    // time: O(logc) + O(sqrt(c)) >> O(sqrt(c))
+    // space: O(1)
+    public boolean judgeSquareSum_5(int c) {
+        long i = 0;
+        long j = (long) Math.sqrt(c); // time: O(logc)
+
+        while (i <= j) {
+            long sum = i * i + j* j;
+
+            if (sum == c) {
+                return true;
+            } else if (sum < c) {
+                i++;
+            } else {
+                j--;
             }
         }
 
