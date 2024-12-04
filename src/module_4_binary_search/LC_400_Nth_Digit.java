@@ -21,11 +21,11 @@ public class LC_400_Nth_Digit {
     public int findNthDigit_1(int n) {
         // step 1: find k using linear search
         int k = 1;
-        int numberAmount = 9;
+        long numberAmount = 9; // int might be overflow
         int firstNumberOfRange = 1;
 
         while (n - numberAmount * k > 0) {
-            n = n - numberAmount * k;
+            n = (int) (n - numberAmount * k);
 
             k++;
             numberAmount = numberAmount * 10;
