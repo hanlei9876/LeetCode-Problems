@@ -1,8 +1,10 @@
 package module_4_binary_search;
 
 import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
@@ -36,7 +38,7 @@ public class LC_362_Design_Hit_Counter {
 
 // solution 1: use queue
 // time: O(1) >> check the 2 methods below
-// space: O(N) is is the size of queue
+// space: O(N), N is the size of queue
 class HitCounter_1 {
 
     Queue<Integer> queue; // Java interface
@@ -112,5 +114,59 @@ class HitCounter_2 {
         }
 
         return totalCount;
+    }
+}
+
+
+// solution 3: ArrayList + binary search
+// search goal: find the smallest element in arrayList that is >= target (left boundary of current 300s-window)
+// time: O(logN)
+// space: O(N), N is the size of arrayList
+class HitCounter_3 {
+
+    List<Integer> hitList;
+
+    public HitCounter_3() {
+        hitList = new ArrayList<>();
+    }
+
+    // time: O(1)
+    // space: O(1)
+    public void hit(int timestamp) {
+        hitList.add(timestamp);
+    }
+
+    // binary search
+    // time: O(logN)
+    // space: O(1)
+    public int getHits(int timestamp) {
+        // edge case 1
+        if (hitList.size() == 0) {
+            return 0;
+        }
+
+        int leftBoundary = timestamp - 300 + 1;
+
+        // edge case 2: target value is not existing in the array
+        // e.g. [2, 3, 4], call getHits(305)
+        if (hitList.get(hitList.size() - 1) < leftBoundary) {
+            return 0;
+        }
+
+        // binary search to find the smallest element that is >= leftBoundary
+        int L = 0;
+        int R = hitList.size() - 1;
+
+        while (L < R) {
+            int mid = L + (R - L) / 2;
+
+            if (hitList.get(mid) < leftBoundary) {
+                L = mid + 1;
+            } else {
+                R = mid;
+            }
+        }
+
+        return hitList.size() - L; // L == R
     }
 }
