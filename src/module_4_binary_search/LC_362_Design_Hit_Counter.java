@@ -22,6 +22,9 @@ public class LC_362_Design_Hit_Counter {
     //      call hit(2) 3 times in a row
 
 
+// for overall complexity, below is needed to upgrade - we consider taking N calls on methods hit(), getHits() separately. Refer to LC-981
+
+
     // basis operations of queue
     public static void main(String[] args) {
         Queue<Integer> queue = new LinkedList<>();
@@ -52,12 +55,14 @@ class HitCounter_1 {
      *  - considering hit() is called more frequently than getHits(), we put removal operation in getHits() to improve performance
      */
 
+    // single call's complexity
     // time: O(1)
     // space: O(1)
     public void hit(int timestamp) {
         queue.add(timestamp);
     }
 
+    // single call's complexity
     // time: worst case: 300 >> O(1)
     // space: O(1)
     public int getHits(int timestamp) {
@@ -89,6 +94,7 @@ class HitCounter_2 {
         totalCount = 0;
     }
 
+    // single call's complexity
     // time: O(1)
     // space: O(1)
     public void hit(int timestamp) {
@@ -103,6 +109,7 @@ class HitCounter_2 {
         totalCount++;
     }
 
+    // single call's complexity
     // time: worst case: 300 >> O(1)
     // space: O(1)
     public int getHits(int timestamp) {
@@ -130,6 +137,7 @@ class HitCounter_3 {
         hitList = new ArrayList<>();
     }
 
+    // single call's complexity
     // time: O(1)
     // space: O(1)
     public void hit(int timestamp) {
@@ -137,6 +145,7 @@ class HitCounter_3 {
     }
 
     // binary search
+    // single call's complexity
     // time: O(logN)
     // space: O(1)
     public int getHits(int timestamp) {
