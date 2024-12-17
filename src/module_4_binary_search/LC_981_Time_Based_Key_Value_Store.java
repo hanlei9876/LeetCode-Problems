@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class LC_981_Time_Based_Key_Value_Store {
-    // similar to LC-362
+    // similar to LC-729
 
     // for set(key, value, timestamp):
     //    key      :   value     : timestamp

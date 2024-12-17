@@ -15,6 +15,8 @@ public class LC_729_My_Calendar_I {
 
     // 花花酱: https://www.youtube.com/watch?v=seQnf-5hlBo
 
+    // for overall complexity, below is needed to upgrade - we consider taking N calls on methods hit(), getHits() separately. Refer to LC-981
+
     // key - overlap of two ranges/intervals [s1, e1), [s2, e2) <==> max(s1, s2) < min(e1, e2). In details,
     //   - if the two intervals have NO overlap <==> e1 <= s2 AND e2 <= s1
     //   - if the two intervals have overlap <==> e1 > s2 AND e2 > s1
@@ -65,6 +67,7 @@ class MyCalendar {
         calender = new ArrayList<>();
     }
 
+    // single call's complexity
     // time: O(N)
     // space: O(N)
     public boolean book(int startTime, int endTime) {
@@ -97,6 +100,7 @@ class MyCalendar_2 {
         calendar = new TreeMap<>();
     }
 
+    // single call's complexity
     // time: O(3logN) >> O(log(N))
     // space: O(N)
     public boolean book(int startTime, int endTime) {
