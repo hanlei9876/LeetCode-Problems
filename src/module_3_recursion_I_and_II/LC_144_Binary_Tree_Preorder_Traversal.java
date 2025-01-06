@@ -9,8 +9,9 @@ public class LC_144_Binary_Tree_Preorder_Traversal {
 
 // Solution-1: recursion
 // time: O(N)
-// space: - O(h) = O(logN) in average case, h is tree height
-//        - O(N) in worst case, where input is a skewed tree
+// space:
+//        - O(h) = O(logN) in average case, h is tree height
+//        - O(h) = O(N) in worst case, where input is a (left or right) skewed tree
 //    where N is the total number of nodes in tree
 class LC_144_Binary_Tree_Preorder_Traversal_recursion {
 
@@ -36,9 +37,10 @@ class LC_144_Binary_Tree_Preorder_Traversal_recursion {
 
 // Solution-2: iteration - stack
 // time: O(N) - visit each node exactly once
-// space: O(h) >> O(logN) - the stack max size the height of tree in average case
-//      - O(1) - left-skewed tree/right-skewed tree in best case, as the stack always store 1 node st most at any moment
-//      - O(N/2) >> O(N) - in worst case, the tree is as below
+// space:
+//      - O(h) = O(logN) - the stack max size the height of tree in average case
+//      - O(1) = left-skewed tree/right-skewed tree in best case, as the stack always store 1 node st most at any moment
+//      - O(N/2) = O(N) - in worst case, the tree is as below
 /**
  *                       1
  *                     /  \
@@ -55,15 +57,19 @@ class LC_144_Binary_Tree_Preorder_Traversal_recursion {
 
 class LC_144_Binary_Tree_Preorder_Traversal_iteration {
 
-    // optimal solution
+    // optimal solution (recommended) - never push null node to stack
     public List<Integer> preorderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList<>();
 
+        // edge case
         if (root == null)
             return res;
 
+        // initialize stack
         Stack<TreeNode> stack = new Stack<>();
         stack.push(root);
+
+        // focus on the stack only - handle one node per loop
         while (!stack.isEmpty()) {
             TreeNode curr = stack.pop();
 
@@ -80,6 +86,7 @@ class LC_144_Binary_Tree_Preorder_Traversal_iteration {
         return res;
     }
 
+    // not recommended
     public List<Integer> preorderTraversal_v2_less_optimal_in_space(TreeNode root) {
         List<Integer> res = new ArrayList<>();
         Stack<TreeNode> stack = new Stack<>();
