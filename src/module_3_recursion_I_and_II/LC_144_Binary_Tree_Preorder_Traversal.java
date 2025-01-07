@@ -107,37 +107,46 @@ class LC_144_Binary_Tree_Preorder_Traversal_iteration {
 }
 
 
-// solution 3: Morris traversal
-// time:
+// solution 3: Morris traversal (primary pointer + runner pointer)
+// time: O(2N) >> O(N), where N is number of nodes in tree
 // space: O(1)
+//
+// To prove that the time complexity is O(n), the biggest problem lies in finding the time complexity of finding the predecessor nodes of all the nodes in the binary tree.
+// Intuitively, the complexity is O(nlogn), because to find the predecessor node for a single node related to the height of the tree.
+// But in fact, finding the predecessor nodes for all nodes only needs O(n) time.
+// Because a binary Tree with n nodes has n−1 edges, the whole processing for each edges up to 2 times, one is to locate a node, and the other is to find the predecessor node.
+// So the complexity is O(n)
+// walk through the example in the note
 class LC_144_Binary_Tree_Morris_Traversal {
 
     public List<Integer> preorderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList<>();
 
-        TreeNode node = root; // initialize primary pointer
+        TreeNode curr = root; // initialize primary pointer
 
-        while (node != null) {
-            if (node.left == null) {
-                res.add(node.val);
-                node = node.right;
-            } else {
-                // set predecessor
-                TreeNode predecessor = node.left;
+        while (curr != null) {
+            if (curr.left == null) { // curr has NO left subtree
+                res.add(curr.val);
+                curr = curr.right;
+            } else { // curr has left subtree
+                // initialize predecessor (runner pointer)
+                TreeNode pred = curr.left;
 
-                // move predecessor all the way to right
-                while (predecessor.right != null && predecessor.right != node) {
-                    predecessor = predecessor.right;
+                // find the rightmost node in the left subtree, or the node that already points to curr
+                while (pred.right != null && pred.right != curr) {
+                    pred = pred.right;
                 }
 
                 // validate predecessor
-                if (predecessor.right == null) {
-                    res.add(node.val);
-                    predecessor.right = node;
-                    node = node.left;
+                if (pred.right == null) {
+                    // no thread exist, meaning we have reached left-most node
+                    res.add(curr.val);
+                    pred.right = curr; // establish a temporary thread back to the current node
+                    curr = curr.left;
                 } else {
-                    predecessor.right = null;
-                    node = node.right;
+                    // the thread already exists, meaning we've already visited left subtree
+                    pred.right = null;
+                    curr = curr.right;
                 }
             }
         }
