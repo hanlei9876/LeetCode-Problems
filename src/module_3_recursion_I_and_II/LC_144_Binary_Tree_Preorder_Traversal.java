@@ -105,3 +105,43 @@ class LC_144_Binary_Tree_Preorder_Traversal_iteration {
         return res;
     }
 }
+
+
+// solution 3: Morris traversal
+// time:
+// space: O(1)
+class LC_144_Binary_Tree_Morris_Traversal {
+
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+
+        TreeNode node = root; // initialize primary pointer
+
+        while (node != null) {
+            if (node.left == null) {
+                res.add(node.val);
+                node = node.right;
+            } else {
+                // set predecessor
+                TreeNode predecessor = node.left;
+
+                // move predecessor all the way to right
+                while (predecessor.right != null && predecessor.right != node) {
+                    predecessor = predecessor.right;
+                }
+
+                // validate predecessor
+                if (predecessor.right == null) {
+                    res.add(node.val);
+                    predecessor.right = node;
+                    node = node.left;
+                } else {
+                    predecessor.right = null;
+                    node = node.right;
+                }
+            }
+        }
+
+        return res;
+    }
+}
