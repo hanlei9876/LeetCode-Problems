@@ -8,43 +8,38 @@ import java.util.Queue;
 public class LC_102_Binary_Tree_Level_Order_Traversal {}
 
 // BFS -  recursion
-// time: O(N) -each node will be visited
-// space: O(N) - it is the height of the tree. But in the worst case, the tree is a skewed tree
-//   where N is the total number of nodes in the tree
+// time: O(N) - each node will be visited
+// space: O(h)
+//    - O(logN) in average case
+//    - O(N) in the worst case, the tree is a (left or right) skewed tree
+// where N is the total number of nodes in the tree, h is the height of the tree
 class LC_102_Binary_Tree_Level_Order_Traversal_recursion {
 
     List<List<Integer>> res =  new ArrayList<>();
 
     public List<List<Integer>> levelOrder(TreeNode root) {
-        // check if the tree is null
-        if (root == null) {
-            return res;
-        }
-
         helper(root, 0);
         return res;
     }
 
     // we only handle a tree that is not null
     private void helper(TreeNode node, int level) {
-        // check: level matches list.size() ??
-        if (res.size() == level) {
-            res.add(new ArrayList<>());
+        // base case
+        if (node == null) {
+            return;
         }
 
-        // add node
+        // recursion relation
+        if (level == res.size()) { // check: level matches list.size()
+            res.add(new ArrayList());
+        }
+
+        // process current node
         res.get(level).add(node.val);
 
         // handle next level
-        if (node.left != null) {
-            helper(node.left, level + 1);
-        }
-
-        if (node.right != null) {
-            helper(node.right, level + 1);
-        }
-
-        // base case: if node.left == null || node.right == null >> return;
+        helper(node.left, level + 1);
+        helper(node.right, level + 1);
     }
 
     public static void main(String[] args) {
@@ -64,19 +59,17 @@ class LC_102_Binary_Tree_Level_Order_Traversal_recursion {
 
 
 // BFS -  iteration
-// time: O(N) -each node will be visited
-// space: O(N)
-//   - O( max number of nodes on a level)
-//   - for a full and complete binary tree(worst case), the last level has all the leaf nodes and will have the max number of nodes.
+// time: O(N) -each node will be visited once exactly
+// space: O( max number of nodes on a level) >> O(N)
+//   - for a full and complete binary tree (worst case), the last level has all the leaf nodes and will have the max number of nodes.
 //   - Number of leaf nodes is given by (N+1)/2, so ignoring the constants makes the space complexity O(N)
-
-//   where N is the total number of nodes in the tree
+// where N is the total number of nodes in the tree
 class LC_102_Binary_Tree_Level_Order_Traversal_iteration{
 
     public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();
 
-        // handle null-tree
+        // handle edge case
         if (root == null) {
             return res;
         }
@@ -84,13 +77,14 @@ class LC_102_Binary_Tree_Level_Order_Traversal_iteration{
         // initialize queue
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
+
         int levelIndex = 0;
         while (!queue.isEmpty()) { // each single iteration handles all nodes at one single level
             // add list to hold all nodes in a level
             res.add(new ArrayList<>());
 
             // poll all nodes in the same level
-            int levelLength =  queue.size();
+            int levelLength = queue.size(); // we must declare how many nodes to poll from queue, as the queue's size is dynamically changing during the for loop
             for (int i = 0; i < levelLength; i++) { // CANNOT: for (int i = 0; i < queue.size(); i++)
                 TreeNode node = queue.poll();
 
