@@ -147,7 +147,7 @@ class LC_145_Binary_Tree_Postorder_Traversal_iteration_v3 {
 }
 
 
-// Solution-4: iteration - stack + doubly linked list
+// Solution-4: iteration - stack + (deque) doubly linked list - One way to implement a deque is a doubly-linked list, also known as a “head-tail linked list”
 // directly return doubly linked list as result
 // time: O(N)
 // space: O(h)
