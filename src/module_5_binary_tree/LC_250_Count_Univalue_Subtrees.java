@@ -34,7 +34,7 @@ public class LC_250_Count_Univalue_Subtrees {
 // space: O(H)
 //   - average case: O(logN)
 //   - worst case: O(N) - left-right skewed tree
-class Solution_1 {
+class LC_250_Solution_1 {
 
     int count = 0;
 
@@ -83,7 +83,7 @@ class Solution_1 {
 // space: O(H)
 //   - average case: O(logN)
 //   - worst case: O(N) - left-right skewed tree
-class Solution_2 {
+class LC_250_Solution_2 {
 
     public int countUnivalSubtrees(TreeNode root) {
         return helper(root).getValue();
