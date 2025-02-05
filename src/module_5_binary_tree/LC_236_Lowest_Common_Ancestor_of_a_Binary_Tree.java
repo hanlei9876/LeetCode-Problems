@@ -2,14 +2,14 @@ package module_5_binary_tree;
 
 public class LC_236_Lowest_Common_Ancestor_of_a_Binary_Tree {
 
-    // key 1: DFS traverse tree - bottom-up manner
+    // key 1: overall strategy - DFS traverse tree, when finding target nodes, start to backtrack (bottom-up manner)
     //   When arrive one node, check 3 things:
     //       left subtree contains one of the target nodes?
     //       right subtree contain one of the target nodes?
     //       the current is one of the target nodes?
-    //   If at least any 2 conditions are true, which means we are at the first common node - this is the LCP
+    //   If at least any 2 conditions are true, it means we are at the first common node - this is the LCP
     //
-    // Key 2: due the nature of tree structure, one we found LCP for the first time, we will never ever find a second LCP
+    // Key 2: due to we travel tree from bottom up, once we found LCP for the first time, we found LCP & will never ever find a second LCP
     //
     // Trick: map true/false to 1/0, so to easily check 3 booleans at once
 }
