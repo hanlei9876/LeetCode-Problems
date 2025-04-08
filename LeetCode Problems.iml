@@ -16,8 +16,14 @@
         <SOURCES />
       </library>
     </orderEntry>
-  </component>
-  <component name="SonarLintModuleSettings">
-    <option name="uniqueId" value="6ede6a00-f840-4b00-a6cd-20bb93063864" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Downloads/grid-common-bis-3.1.443.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

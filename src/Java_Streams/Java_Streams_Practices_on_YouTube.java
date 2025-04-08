@@ -128,5 +128,36 @@ public class Java_Streams_Practices_on_YouTube {
         IntSummaryStatistics intSummaryStatistics = IntStream.of(7, 2, 19, 88, 73, 4, 10)
                 .summaryStatistics(); // this only works for integers
         System.out.println(intSummaryStatistics);
+
+
+        // 15. String.toChars() - an IntStream
+        String name = "aleyton";
+        name.chars()
+                .forEach(System.out::println);
+        name.chars()
+                .forEach(c -> System.out.println((char) c));
+
+
+        // 16. boxed(), mapToObject()
+        //   - mapToObject() - a method used on primitive streams (like IntStream, DoubleStream, etc.) to convert each primitive value into an object
+        //   - Primitive streams (IntStream, DoubleStream, etc.) are more efficient for numeric operations, but they don’t support generic object operations.
+        //   - So mapToObj() is your bridge to convert them into Stream<T> when needed.
+        IntStream.range(1, 4)
+                .boxed().forEach(System.out::println); // recommended
+        // above is equivalent to below
+        IntStream.range(1, 4)
+                .mapToObj(i -> i).forEach(System.out::println);
+
+        IntStream.range(1, 4)
+                .mapToObj(i -> "Number is: " + i)
+                .forEach(System.out::println);
+
+        name.chars()
+                .mapToObj(i -> (char) i)
+                .forEach(System.out::println);
+
+        name.chars()
+                .mapToObj(i -> String.valueOf((char) i))
+                .forEach(System.out::println);
     }
 }
