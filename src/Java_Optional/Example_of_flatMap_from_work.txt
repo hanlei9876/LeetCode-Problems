@@ -1,0 +1,119 @@
+    
+// v1
+// orginal version
+@Transactional(propagation = Propagation.REQUIRED)
+@Modifying
+@Override
+public java.util.Optional<PvsFund> updateEsaInPvsFundFromSmsf(EmployerSmsfProfile employerSmsfProfile) {
+
+    if(java.util.Optional.ofNullable(employerSmsfProfile).isPresent()) {
+        // retrieve esa
+        SmsfEsa smsfEsa = employerSmsfProfile.getEsa(); // nullable
+        String contributionEsa = smsfEsa.getContributionEsa();
+
+        // retrieve pvs_fund using sci_fi
+        String smsfSci = employerSmsfProfile.getSmsfsci(); // nullable
+        PvsFund fund = fundRepo.findBySciFi(smsfSci); // nullable
+
+        // update esa in pvs_fund
+        if (fund != null) {
+            fund.setElectronicServiceAddress(contributionEsa);
+            return java.util.Optional.of(fundRepo.save(fund)); // nullable
+        }
+    }
+
+    return java.util.Optional.empty();
+}
+
+
+// v2
+@Transactional(propagation = Propagation.REQUIRED)
+@Override
+public java.util.Optional<PvsFund> updateEsaInPvsFundFromSmsf(EmployerSmsfProfile employerSmsfProfile) {
+
+    if(employerSmsfProfile != null) {
+        // retrieve esa
+        SmsfEsa smsfEsa = employerSmsfProfile.getEsa(); // nullable
+        String contributionEsa = smsfEsa.getContributionEsa(); // nullable
+
+        // retrieve pvs_fund using sci_fi
+        String smsfSci = employerSmsfProfile.getSmsfsci(); // nullable
+        PvsFund fund = fundRepo.findBySciFi(smsfSci); // nullable
+
+        // update esa in pvs_fund
+        if (contributionEsa != null && fund != null) {
+            fund.setElectronicServiceAddress(contributionEsa);
+            return java.util.Optional.ofNullable(fundRepo.save(fund)); // nullable
+        }
+    }
+
+    return java.util.Optional.empty();
+}
+
+
+// v3
+@Transactional(propagation = Propagation.REQUIRED)
+@Override
+public java.util.Optional<PvsFund> updateEsaInPvsFundFromSmsf(EmployerSmsfProfile employerSmsfProfile) {
+    if(employerSmsfProfile != null) {
+        java.util.Optional<String> optionalContributionEsa = java.util.Optional.ofNullable(employerSmsfProfile.getEsa())
+                .map(SmsfEsa::getContributionEsa);
+
+        java.util.Optional<PvsFund> optionalFund = java.util.Optional.ofNullable(employerSmsfProfile.getSmsfsci())
+                .map(smsfSci -> fundRepo.findBySciFi(smsfSci));
+
+        if (optionalContributionEsa.isPresent() && optionalFund.isPresent()) {
+            PvsFund fund = optionalFund.get();
+            fund.setElectronicServiceAddress(optionalContributionEsa.get());
+            return java.util.Optional.ofNullable(fundRepo.save(fund)); // nullable
+        }
+    }
+
+    return java.util.Optional.empty();
+}
+
+// use flatMap
+
+// 4.1
+@Transactional(propagation = Propagation.REQUIRED)
+@Override
+public java.util.Optional<PvsFund> updateEsaInPvsFundFromSmsf2(EmployerSmsfProfile employerSmsfProfile) {
+    if (employerSmsfProfile == null) {
+        return java.util.Optional.empty();
+    }
+
+    return java.util.Optional.ofNullable(employerSmsfProfile.getEsa())
+            .map(SmsfEsa::getContributionEsa)
+            .flatMap(contributionEsa ->
+                java.util.Optional.ofNullable(employerSmsfProfile.getSmsfsci())
+                        .map(smsfSci -> fundRepo.findBySciFi(smsfSci))
+                        .map(fund -> {
+                            fund.setElectronicServiceAddress(contributionEsa);
+                            return fundRepo.save(fund);
+                        })
+                );
+}
+
+
+// v4.2
+// changed one line: .map(smsfSci -> fundRepo.findBySciFi(smsfSci))
+@Transactional(propagation = Propagation.REQUIRED)
+@Override
+public Optional<PvsFund> updateEsaInPvsFundFromSmsf(EmployerSmsfProfile employerSmsfProfile) {
+    if (employerSmsfProfile == null) {
+        return Optional.empty();
+    }
+
+    return Optional.ofNullable(employerSmsfProfile.getEsa())
+        .map(SmsfEsa::getContributionEsa)
+        .flatMap(
+            contributionEsa ->
+            Optional.ofNullable(employerSmsfProfile.getSmsfsci())
+                .map(fundRepo::findBySciFi)
+                .map(fund -> {
+                    fund.setElectronicServiceAddress(contributionEsa);
+                    return fundRepo.save(fund);
+                })
+        );
+}
+
