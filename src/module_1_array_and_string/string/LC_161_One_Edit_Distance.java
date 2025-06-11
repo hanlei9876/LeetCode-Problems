@@ -43,6 +43,9 @@ public class LC_161_One_Edit_Distance {
                 }
             }
 
+            // case 1: diffCount == 0 >> "a" "ab"
+            // case 2: diffCount == 1 >> "ab" "acb"
+            // other cases: more than 1 edit distance
             return diffCount <= 1;
         }
     }
