@@ -143,21 +143,24 @@ public class Java_Streams_Practices_on_YouTube {
         //   - Primitive streams (IntStream, DoubleStream, etc.) are more efficient for numeric operations, but they don’t support generic object operations.
         //   - So mapToObj() is your bridge to convert them into Stream<T> when needed.
         IntStream.range(1, 4)
-                .boxed().forEach(System.out::println); // recommended
+                .boxed() // Stream<Integer>
+                .forEach(System.out::println); // recommended
+
         // above is equivalent to below
         IntStream.range(1, 4)
-                .mapToObj(i -> i).forEach(System.out::println);
+                .mapToObj(i -> i) // Stream<Integer>
+                .forEach(System.out::println);
 
         IntStream.range(1, 4)
-                .mapToObj(i -> "Number is: " + i)
+                .mapToObj(i -> "Number is: " + i) // Stream<String>
                 .forEach(System.out::println);
 
         name.chars()
-                .mapToObj(i -> (char) i)
+                .mapToObj(i -> (char) i) // Stream<Character>
                 .forEach(System.out::println);
 
         name.chars()
-                .mapToObj(i -> String.valueOf((char) i))
+                .mapToObj(i -> String.valueOf((char) i)) // // Stream<String>
                 .forEach(System.out::println);
     }
 }
