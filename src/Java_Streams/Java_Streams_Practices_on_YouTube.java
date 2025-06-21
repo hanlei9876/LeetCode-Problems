@@ -160,7 +160,7 @@ public class Java_Streams_Practices_on_YouTube {
                 .forEach(System.out::println);
 
         name.chars()
-                .mapToObj(i -> String.valueOf((char) i)) // // Stream<String>
+                .mapToObj(i -> String.valueOf((char) i)) // Stream<String>
                 .forEach(System.out::println);
     }
 }
