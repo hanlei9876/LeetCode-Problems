@@ -1,6 +1,5 @@
-package Java_Streams;
+package java_practice.Java_Streams;
 
-import java.lang.Object;
 import java.util.List;
 
 public class Song {

@@ -1,4 +1,4 @@
-package Java_Streams;
+package java_practice.Java_Streams;
 
 import java.util.List;
 import java.util.function.Function;

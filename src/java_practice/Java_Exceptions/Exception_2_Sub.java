@@ -1,7 +1,6 @@
-package Java_Exceptions;
+package java_practice.Java_Exceptions;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class Exception_2_Sub extends Exception_1_Super {
 

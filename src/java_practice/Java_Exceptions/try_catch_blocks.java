@@ -1,7 +1,6 @@
-package Java_Exceptions;
+package java_practice.Java_Exceptions;
 
 import java.io.FileReader;
-import java.io.IOException;
 
 public class try_catch_blocks {
 

@@ -1,4 +1,4 @@
-package Java_Exceptions;
+package java_practice.Java_Exceptions;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
