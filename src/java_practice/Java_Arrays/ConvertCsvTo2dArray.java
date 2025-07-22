@@ -2,6 +2,8 @@ package java_practice.Java_Arrays;
 
 import Helper_Classes.TreeNode;
 
+import java.util.Arrays;
+
 public class ConvertCsvTo2dArray {
 
     // Given a CSV file (represented as a Java String), convert the data into a Java 2D array (return String[][])
@@ -43,6 +45,7 @@ public class ConvertCsvTo2dArray {
         print2DArray(arr);
 
         String[] row1 = {"a", "1", "4"};
+        Arrays.stream(row1).forEach(System.out::println);
 
         String[] row2 = new String[3]; // [null, null, null]
         String[] row3 = new String[] {"q", "g"};
