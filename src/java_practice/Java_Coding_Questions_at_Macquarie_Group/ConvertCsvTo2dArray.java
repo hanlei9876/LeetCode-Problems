@@ -1,9 +1,9 @@
-package java_practice.Java_Arrays;
-
-import Helper_Classes.TreeNode;
+package java_practice.Java_Coding_Questions_at_Macquarie_Group;
 
 import java.util.Arrays;
 
+
+// Macquarie Group coding question (on-site)
 public class ConvertCsvTo2dArray {
 
     // Given a CSV file (represented as a Java String), convert the data into a Java 2D array (return String[][])
