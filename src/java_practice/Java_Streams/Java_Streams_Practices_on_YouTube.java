@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.IntSummaryStatistics;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -75,7 +72,13 @@ public class Java_Streams_Practices_on_YouTube {
                 .filter(s -> s.length() > 13)
                 .forEach(System.out::println);
         bands1.close(); // we MUST close the stream, because it opens a file and must be properly closed to release system resources (avoid resource leak).
-        System.out.println();
+        System.out.println(8.1);
+
+        // 8.1 reverse sort string stream
+        Stream<String> bands11 = Files.lines(path);
+        bands11
+                .sorted((s1, s2) -> s2.compareTo(s1))
+                .forEach(s -> System.out.print(s + " "));
 
         // 9. Stream rows from text file and save to List
         List<String> bands2 = Files.lines(Paths.get("src", "Java_Streams", "bands.txt"))
@@ -130,7 +133,7 @@ public class Java_Streams_Practices_on_YouTube {
         System.out.println(intSummaryStatistics);
 
 
-        // 15. String.toChars() - an IntStream
+        // 15. String.chars() - an IntStream
         String name = "aleyton";
         name.chars()
                 .forEach(System.out::println);
@@ -162,5 +165,25 @@ public class Java_Streams_Practices_on_YouTube {
         name.chars()
                 .mapToObj(i -> String.valueOf((char) i)) // Stream<String>
                 .forEach(System.out::println);
+
+        // 17. sort int stream
+        IntStream.of(3, 1, 9, 6)
+                .sorted()
+                .forEach(i -> System.out.print(i + " "));
+
+        System.out.println();
+
+        // 18. reverse sort int stream
+        IntStream.of(3, 1, 6, 9)
+                .boxed()
+                .sorted(Comparator.reverseOrder())
+                .mapToInt(i -> i.intValue())
+                .forEach(i -> System.out.print(i + " "));
+
+        IntStream.of(3, 1, 6, 9)
+                .boxed()
+                .sorted((i1, i2) -> i2 - i1)
+                .mapToInt(i -> i.intValue())
+                .forEach(i -> System.out.print(i + " "));
     }
 }
