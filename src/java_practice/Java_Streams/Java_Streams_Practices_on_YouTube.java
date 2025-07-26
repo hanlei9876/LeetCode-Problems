@@ -173,17 +173,26 @@ public class Java_Streams_Practices_on_YouTube {
 
         System.out.println();
 
-        // 18. reverse sort int stream
+        // 18. sort / reverse sort int stream
+        // NOTE: The sorted() method on IntStream doesn't accept a comparator.
+        // Only boxed stream can have sorted() with comparator
+        IntStream.of(3, 1, 9, 6)
+                .sorted()
+                .forEach(i -> System.out.print(i + " "));
+        System.out.println();
+
         IntStream.of(3, 1, 6, 9)
                 .boxed()
                 .sorted(Comparator.reverseOrder())
                 .mapToInt(i -> i.intValue())
                 .forEach(i -> System.out.print(i + " "));
+        System.out.println();
 
         IntStream.of(3, 1, 6, 9)
                 .boxed()
                 .sorted((i1, i2) -> i2 - i1)
                 .mapToInt(i -> i.intValue())
                 .forEach(i -> System.out.print(i + " "));
+        System.out.println();
     }
 }
