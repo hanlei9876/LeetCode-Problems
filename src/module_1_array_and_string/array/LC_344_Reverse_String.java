@@ -19,6 +19,8 @@ public class LC_344_Reverse_String {
     }
 
     // solution 2: recursion
+    // time: O(N) - N/2 swaps
+    // space: O(N) - recursion stack height
     public void reverseString_1(char[] s) {
         helper(0, s.length - 1, s);
     }
