@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-// This represents a family of "finding missing numbers" problem. Usually, there are a number of ways to solve it as bloew:
+// This represents a family of "finding missing numbers" problem. Usually, there are a number of ways to solve it as below:
 // 1 - brute force
 // 2 - sort + one pass to compare index with value
 // 3 - set
