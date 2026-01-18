@@ -6,7 +6,7 @@ import java.util.Set;
 
 // This represents a family of "finding missing numbers" problem. Usually, there are a number of ways to solve it as below:
 // 1 - brute force
-// 2 - sort + one pass to compare index with value
+// 2 - sort + compare
 // 3 - set
 // 4 - sum, find sums' difference
 // 5 - XOR
